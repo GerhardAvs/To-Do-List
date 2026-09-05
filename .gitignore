@@ -1,0 +1,22 @@
+# Carpeta de compilación
+build/
+
+# Binarios y ejecutables
+*.o
+*.obj
+*.exe
+*.out
+todo
+
+# Archivos de IDE / editor
+.vscode/
+.idea/
+*.swp
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Fase 3: base de datos local (si aplica)
+db/*.sqlite
+db/*.db
