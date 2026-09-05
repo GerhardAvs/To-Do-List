@@ -1,73 +1,73 @@
-# 📝 To-Do List en C++
+# 📝 C++ To-Do List
 
-Aplicación de consola desarrollada en **C++** para administrar una lista de tareas mediante programación orientada a objetos.
+Console application developed in **C++** to manage a task list using object-oriented programming.
 
-Este proyecto será desarrollado durante el semestre en **3 fases**, incorporando progresivamente conceptos de POO, herencia, polimorfismo, persistencia de datos, archivos, bases de datos y manejo de excepciones.
-
----
-
-## 🚀 Visión general
-
-El proyecto consiste en construir una aplicación de **lista de tareas (To-Do List)** capaz de permitir al usuario administrar sus actividades desde una interfaz de consola.
-
-### Fases del proyecto
-
-| Fase       | Contenido                             | Estado           |
-| ---------- | ------------------------------------- | ---------------- |
-| **Fase 1** | Fundamentos de POO y CRUD en memoria  | 🟡 En desarrollo |
-| **Fase 2** | Herencia, polimorfismo y sobrecarga   | ⚪ Pendiente      |
-| **Fase 3** | Base de datos, archivos y excepciones | ⚪ Pendiente      |
+This project will be developed throughout the semester in **3 phases**, progressively incorporating concepts such as OOP, inheritance, polymorphism, data persistence, file handling, databases, and exception handling.
 
 ---
 
-# 📌 Fase 1 — Fundamentos
+## 🚀 Overview
 
-En esta primera fase se desarrolla la versión básica de la aplicación.
+The project consists of building a **To-Do List application** that allows users to manage their activities through a console interface.
 
-El programa permitirá administrar tareas almacenadas **en memoria**, utilizando clases y objetos.
+### Project Phases
 
-## Funcionalidades
-
-* ➕ Agregar una tarea.
-* 📋 Listar todas las tareas.
-* 🔄 Cambiar el estado de una tarea.
-* 🗑️ Eliminar una tarea.
-* ✅ Validar entradas del usuario.
-* 💻 Interactuar mediante un menú de consola.
+| Phase       | Content                                    | Status         |
+| ----------- | ------------------------------------------ | -------------- |
+| **Phase 1** | OOP fundamentals and in-memory CRUD        | 🟡 In progress |
+| **Phase 2** | Inheritance, polymorphism, and overloading | ⚪ Pending      |
+| **Phase 3** | Database, file handling, and exceptions    | ⚪ Pending      |
 
 ---
 
-# 🏗️ Diseño del proyecto
+# 📌 Phase 1 — Fundamentals
 
-La Fase 1 utiliza principalmente dos clases:
+In this first phase, the basic version of the application will be developed.
 
-### `Tarea`
+The program will manage tasks stored **in memory**, using classes and objects.
 
-Representa una tarea individual.
+## Features
 
-Sus principales atributos son:
-
-* Descripción.
-* Estado.
-* Fecha de creación.
-
-Los atributos serán privados para aplicar **encapsulamiento**.
-
-### `ListaTareas`
-
-Se encarga de administrar la colección de objetos `Tarea`.
-
-Entre sus responsabilidades se encuentran:
-
-* Agregar tareas.
-* Mostrar tareas.
-* Modificar tareas.
-* Eliminar tareas.
-* Buscar tareas cuando sea necesario.
+* ➕ Add a task.
+* 📋 List all tasks.
+* 🔄 Change the status of a task.
+* 🗑️ Delete a task.
+* ✅ Validate user input.
+* 💻 Interact through a console menu.
 
 ---
 
-# 📂 Estructura del proyecto
+# 🏗️ Project Design
+
+Phase 1 mainly uses two classes:
+
+### `Task`
+
+Represents an individual task.
+
+Its main attributes are:
+
+* Description.
+* Status.
+* Creation date.
+
+The attributes will be private in order to apply **encapsulation**.
+
+### `TaskList`
+
+Responsible for managing the collection of `Task` objects.
+
+Its responsibilities include:
+
+* Adding tasks.
+* Displaying tasks.
+* Modifying tasks.
+* Deleting tasks.
+* Searching for tasks when necessary.
+
+---
+
+# 📂 Project Structure
 
 ```text
 todo-list-cpp/
@@ -77,17 +77,17 @@ todo-list-cpp/
 │
 ├── docs/
 │   ├── kanban.md
-│   └── diagramas/
-│       ├── fase-1/
-│       ├── fase-2/
-│       └── fase-3/
+│   └── diagrams/
+│       ├── phase-1/
+│       ├── phase-2/
+│       └── phase-3/
 │
 ├── src/
 │   ├── main.cpp
-│   ├── Tarea.h
-│   ├── Tarea.cpp
-│   ├── ListaTareas.h
-│   ├── ListaTareas.cpp
+│   ├── Task.h
+│   ├── Task.cpp
+│   ├── TaskList.h
+│   ├── TaskList.cpp
 │   └── ...
 │
 ├── include/
@@ -99,22 +99,22 @@ todo-list-cpp/
 └── db/
 ```
 
-### Descripción de carpetas
+### Folder Description
 
-| Carpeta/archivo   | Descripción                                                        |
-| ----------------- | ------------------------------------------------------------------ |
-| `src/`            | Código fuente del proyecto.                                        |
-| `include/`        | Headers compartidos si el proyecto crece.                          |
-| `tests/`          | Pruebas y casos de prueba.                                         |
-| `docs/`           | Documentación del proyecto.                                        |
-| `docs/kanban.md`  | Información y bitácora del tablero Kanban.                         |
-| `docs/diagramas/` | Diagramas UML de las diferentes fases.                             |
-| `build/`          | Archivos generados durante la compilación.                         |
-| `db/`             | Archivos y scripts relacionados con la base de datos de la Fase 3. |
+| Folder/File      | Description                                        |
+| ---------------- | -------------------------------------------------- |
+| `src/`           | Project source code.                               |
+| `include/`       | Shared headers if the project grows.               |
+| `tests/`         | Tests and test cases.                              |
+| `docs/`          | Project documentation.                             |
+| `docs/kanban.md` | Information and activity log for the Kanban board. |
+| `docs/diagrams/` | UML diagrams for the different phases.             |
+| `build/`         | Files generated during compilation.                |
+| `db/`            | Database-related files and scripts for Phase 3.    |
 
 ---
 
-# 🛠️ Tecnologías
+# 🛠️ Technologies
 
 * **C++**
 * **Git**
@@ -122,112 +122,112 @@ todo-list-cpp/
 * **GitHub Projects / Kanban**
 * **UML**
 
-Durante las siguientes fases se incorporarán nuevas tecnologías relacionadas con persistencia y bases de datos.
+New technologies related to persistence and databases will be introduced during the following phases.
 
 ---
 
-# ▶️ Compilación y ejecución
+# ▶️ Compilation and Execution
 
-Desde la raíz del proyecto:
+From the project root:
 
 ```bash
 g++ src/*.cpp -o build/todo-list
 ```
 
-Después:
+Then:
 
 ```bash
 ./build/todo-list
 ```
 
-> En Windows, el ejecutable puede generarse como `todo-list.exe`.
+> On Windows, the executable can be generated as `todo-list.exe`.
 
 ---
 
-# 🎮 Uso
+# 🎮 Usage
 
-Al iniciar el programa se mostrará un menú similar a:
+When the program starts, a menu similar to the following will be displayed:
 
 ```text
 =============================
-       TO-DO LIST
+          TO-DO LIST
 =============================
 
-1. Agregar tarea
-2. Listar tareas
-3. Cambiar estado
-4. Eliminar tarea
-5. Salir
+1. Add task
+2. List tasks
+3. Change status
+4. Delete task
+5. Exit
 
-Selecciona una opción:
+Select an option:
 ```
 
-El usuario podrá seleccionar una opción y administrar sus tareas.
+The user will be able to select an option and manage their tasks.
 
 ---
 
-# 📊 Estados de una tarea
+# 📊 Task Statuses
 
-Las tareas podrán encontrarse en alguno de los siguientes estados:
+Tasks can have one of the following statuses:
 
 ```text
-PENDIENTE
-EN PROGRESO
-COMPLETADA
+PENDING
+IN PROGRESS
+COMPLETED
 ```
 
 ---
 
-# 🧪 Validación
+# 🧪 Validation
 
-El programa deberá evitar que entradas inválidas provoquen errores o terminen inesperadamente la aplicación.
+The program must prevent invalid input from causing errors or unexpectedly terminating the application.
 
-Se contemplan casos como:
+Cases to be considered include:
 
-* Opciones de menú inexistentes.
-* IDs de tareas que no existen.
-* Entradas vacías.
-* Datos con formato incorrecto.
-* Intentos de modificar o eliminar tareas inexistentes.
-
----
-
-# 📐 Programación Orientada a Objetos
-
-El proyecto busca aplicar correctamente los principios fundamentales de la **Programación Orientada a Objetos**.
-
-En la Fase 1 se trabajará principalmente con:
-
-* Clases.
-* Objetos.
-* Encapsulamiento.
-* Constructores.
-* Métodos.
-* Getters y setters.
-* Composición/asociación entre clases.
-
-Las fases posteriores incorporarán:
-
-* Herencia.
-* Polimorfismo.
-* Sobrecarga.
-* Manejo de excepciones.
+* Non-existent menu options.
+* Task IDs that do not exist.
+* Empty input.
+* Incorrectly formatted data.
+* Attempts to modify or delete non-existent tasks.
 
 ---
 
-# 📋 Organización del equipo
+# 📐 Object-Oriented Programming
 
-El desarrollo se organizará utilizando un tablero **Kanban**.
+The project aims to correctly apply the fundamental principles of **Object-Oriented Programming**.
 
-### Columnas
+Phase 1 will mainly focus on:
+
+* Classes.
+* Objects.
+* Encapsulation.
+* Constructors.
+* Methods.
+* Getters and setters.
+* Composition/association between classes.
+
+Later phases will introduce:
+
+* Inheritance.
+* Polymorphism.
+* Overloading.
+* Exception handling.
+
+---
+
+# 📋 Team Organization
+
+Development will be organized using a **Kanban** board.
+
+### Columns
 
 ```text
-Por hacer → En proceso → Terminado
+To Do → In Progress → Done
 ```
 
-Las tareas se dividirán entre los integrantes del equipo y se actualizarán conforme avance el proyecto.
+Tasks will be distributed among team members and updated as the project progresses.
 
-La documentación del tablero y las revisiones semanales se encuentra en:
+The board documentation and weekly reviews can be found at:
 
 ```text
 docs/kanban.md
@@ -235,138 +235,138 @@ docs/kanban.md
 
 ---
 
-# 🔄 Flujo de trabajo con Git
+# 🔄 Git Workflow
 
-Cada integrante deberá trabajar mediante Git y realizar commits conforme avance el proyecto.
+Each team member should use Git and make commits as the project progresses.
 
-### Ejemplo
+### Example
 
 ```bash
 git add .
-git commit -m "feat: crear clase Tarea"
+git commit -m "feat: create Task class"
 git push
 ```
 
-Se recomienda realizar commits pequeños y descriptivos.
+Small and descriptive commits are recommended.
 
-### Ejemplos de commits
+### Commit Examples
 
 ```text
-feat: crear clase Tarea
-feat: implementar ListaTareas
-feat: agregar funcionalidad para crear tareas
-feat: implementar listado de tareas
-feat: implementar cambio de estado
-feat: implementar eliminación de tareas
-fix: validar opción del menú
-fix: validar ID de tarea
-docs: actualizar README
-docs: agregar diagrama UML
+feat: create Task class
+feat: implement TaskList
+feat: add task creation functionality
+feat: implement task listing
+feat: implement status change
+feat: implement task deletion
+fix: validate menu option
+fix: validate task ID
+docs: update README
+docs: add UML diagram
 ```
 
 ---
 
-# 🌿 Ramas
+# 🌿 Branches
 
-Para evitar trabajar directamente sobre `main`, se recomienda utilizar ramas:
+To avoid working directly on `main`, branches are recommended:
 
 ```text
 main
 │
-├── feature/tarea
-├── feature/lista-tareas
+├── feature/task
+├── feature/task-list
 ├── feature/menu
-├── feature/validaciones
+├── feature/validation
 └── docs/uml
 ```
 
-Una vez terminada una funcionalidad, se puede integrar mediante un Pull Request.
+Once a feature is completed, it can be integrated through a Pull Request.
 
 ---
 
 # 🗺️ Roadmap
 
-## 🟡 Fase 1 — Fundamentos
+## 🟡 Phase 1 — Fundamentals
 
-* [ ] Crear clase `Tarea`.
-* [ ] Crear clase `ListaTareas`.
-* [ ] Implementar agregar tarea.
-* [ ] Implementar listar tareas.
-* [ ] Implementar cambio de estado.
-* [ ] Implementar eliminar tarea.
-* [ ] Implementar menú.
-* [ ] Agregar validación de entradas.
-* [ ] Crear diagrama UML.
-* [ ] Documentar Kanban.
-* [ ] Realizar pruebas.
+* [ ] Create `Task` class.
+* [ ] Create `TaskList` class.
+* [ ] Implement task creation.
+* [ ] Implement task listing.
+* [ ] Implement status changes.
+* [ ] Implement task deletion.
+* [ ] Implement menu.
+* [ ] Add input validation.
+* [ ] Create UML diagram.
+* [ ] Document Kanban board.
+* [ ] Perform tests.
 
-## ⚪ Fase 2 — Herencia y polimorfismo
+## ⚪ Phase 2 — Inheritance and Polymorphism
 
-* [ ] Crear jerarquía de tipos de tarea.
-* [ ] Implementar herencia.
-* [ ] Implementar polimorfismo.
-* [ ] Implementar sobrecarga.
-* [ ] Actualizar el diagrama UML.
-* [ ] Actualizar documentación.
+* [ ] Create a task type hierarchy.
+* [ ] Implement inheritance.
+* [ ] Implement polymorphism.
+* [ ] Implement overloading.
+* [ ] Update UML diagram.
+* [ ] Update documentation.
 
-## ⚪ Fase 3 — Persistencia
+## ⚪ Phase 3 — Persistence
 
-* [ ] Implementar persistencia.
-* [ ] Integrar base de datos.
-* [ ] Implementar manejo de archivos.
-* [ ] Implementar excepciones.
-* [ ] Actualizar CRUD.
-* [ ] Realizar pruebas finales.
-* [ ] Actualizar documentación.
-
----
-
-# 🧪 Pruebas
-
-Las pruebas deberán verificar principalmente:
-
-| Prueba               | Resultado esperado                     |
-| -------------------- | -------------------------------------- |
-| Agregar tarea válida | La tarea se agrega correctamente       |
-| Listar tareas        | Se muestran las tareas existentes      |
-| Cambiar estado       | El estado se actualiza                 |
-| Eliminar tarea       | La tarea desaparece de la lista        |
-| ID inexistente       | Se muestra un mensaje de error         |
-| Opción inválida      | El programa solicita una opción válida |
-| Descripción vacía    | Se rechaza la entrada                  |
+* [ ] Implement data persistence.
+* [ ] Integrate a database.
+* [ ] Implement file handling.
+* [ ] Implement exception handling.
+* [ ] Update CRUD functionality.
+* [ ] Perform final tests.
+* [ ] Update documentation.
 
 ---
 
-# 👥 Equipo
+# 🧪 Testing
 
-| Integrante   | Rol / responsabilidades |
-| ------------ | ----------------------- |
-| Integrante 1 | Desarrollo              |
-| Integrante 2 | Desarrollo              |
-| Integrante 3 | Desarrollo              |
-| Integrante 4 | Desarrollo              |
+Tests should mainly verify the following:
 
-> Actualizar esta sección con los nombres y responsabilidades reales del equipo.
+| Test              | Expected Result                     |
+| ----------------- | ----------------------------------- |
+| Add valid task    | The task is added successfully      |
+| List tasks        | Existing tasks are displayed        |
+| Change status     | The task status is updated          |
+| Delete task       | The task is removed from the list   |
+| Non-existent ID   | An error message is displayed       |
+| Invalid option    | The program requests a valid option |
+| Empty description | The input is rejected               |
 
 ---
 
-# 📚 Documentación
+# 👥 Team
 
-La documentación adicional se encuentra en:
+| Member   | Role / Responsibilities |
+| -------- | ----------------------- |
+| Member 1 | Development             |
+| Member 2 | Development             |
+| Member 3 | Development             |
+| Member 4 | Development             |
+
+> Update this section with the actual names and responsibilities of the team members.
+
+---
+
+# 📚 Documentation
+
+Additional documentation can be found in:
 
 ```text
 docs/
 ```
 
-Incluye:
+It includes:
 
-* Diagramas UML.
-* Organización Kanban.
-* Revisiones semanales.
-* Documentación técnica.
+* UML diagrams.
+* Kanban organization.
+* Weekly reviews.
+* Technical documentation.
 
 ---
 
-# 📄 Licencia
+# 📄 License
 
-Este proyecto fue desarrollado con fines **académicos**.
+This project was developed for **academic purposes**.
