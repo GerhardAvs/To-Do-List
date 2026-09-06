@@ -3,5 +3,5 @@
 
 int displayMenu(void);
 void menuSelection(int opc);
-
+int readOption();
 #endif
