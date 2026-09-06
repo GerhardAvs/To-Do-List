@@ -1,95 +1,30 @@
-algo
-hola prueba
-lo que sea
+## Equipo
 
-a
-g
-sñaga
-g
-agaga
-g
-ñ
-SÑH
-sDÑ
-gDSA
-G[
-    Ntrh
-    SÑG
-    sñg
-    s
-    s
-    g
-    s
-    f
+- Gerardo Avalos Sánchez
+- Rubén Jesús García Torres
+- Daniel Ernesto Garrido Sánchez
+- Integrante 4
 
-    
+## To Do
 
-]
-no se
-yo que se
-a
-ga
-g
-hdy
-gaf
-a
+- Crear clase Task
+- Crear clase TaskList
+- Implementar menú
+- Implementar validaciones
+- Crear UML
 
-hwe
-r4g
-a
-fs
-h
-rjh
-j
+## In Progress
 
-g
-a
-fdw3
-g
+- Implementación de TaskList
 
-g
-f
-awfd
-a
-fortnite
-minecraft
-gd
-rain
-have
-run
-drink
-dronk
-mdoamfo
-f
-af
-afa
-fghsr
-h
-swa
-h
-s
-hs
-f
-af
-a
-f
-af
-af
-a
-fafa
-j
+## Done
 
-ej
-d-j
-sr
-g
-a
-fga
-yw
-ht
-j
-trj
-er
-hgwe
-h
-rh
+- Configuración inicial del proyecto
+
+## Actividades de la semana
+
+### Semana 1
+- Se creó la estructura inicial del proyecto.
+- Se creó la clase Task.
+- Se distribuyeron las actividades entre los integrantes.
+- Se creó la el menu
