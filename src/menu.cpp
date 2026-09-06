@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-#include <stdexcept>
 
 #include "menu.hpp"
 
@@ -22,15 +21,15 @@ int displayMenu(void){
     std::cout<<"────────────────────────────────────────────────"<<std::endl;
 
     std::cout<<"Select an option: ";
-    std::cin>>opc;
+    while(opc < 1 || opc > 5){
+        std::cin>>opc;
+    }
 
     return opc;
     
 }
 
 void menuSelection(int opc){
-    opc = displayMenu();
-    while(true){
         switch(opc){
             case 1:
                 std::cout<<"Selected option 1"<<std::endl;
@@ -48,5 +47,4 @@ void menuSelection(int opc){
                 std::cout<<"Selected option 5"<<std::endl;
                 break;
         }
-    }
 }

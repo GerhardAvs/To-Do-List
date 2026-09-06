@@ -1,8 +1,8 @@
 #include "menu.hpp"
 
 int main(){
-    int opc = displayMenu();
-    menuSelection(opc);
+
+    menuSelection(displayMenu());
 
     return 0;
 }
