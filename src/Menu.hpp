@@ -3,39 +3,48 @@
 
 #include <string>
 #include <vector>
+#include "TaskList.hpp"
 
-class Menu{
-    private:
-        std::vector<std::string> option;
+/**
+ * @brief Manages the user interface and menu display.
+ */
+class Menu {
+private:
+    std::vector<std::string> option;
 
-    public:
-        Menu(std::vector<std::string> option);
+public:
+    /**
+     * @brief Constructs a new Menu object.
+     *
+     * @param option List of options to display in the menu.
+     */
+    Menu(std::vector<std::string> option);
 
-        void render() const;
-        int displayMenu() const;
+    /**
+     * @brief Renders the menu elements on the screen.
+     */
+    void render() const;
+
+    /**
+     * @brief Clears the screen, renders the menu, and reads the user's choice.
+     *
+     * @return The selected menu option index.
+     */
+    int displayMenu() const;
+
+    /**
+     * @brief Displays the list of tasks on the screen.
+     *
+     * @param taskList Reference to the TaskList containing tasks to print.
+     */
+    void displayTasks(const TaskList& taskList) const;
+
+    /**
+     * @brief Displays a message to the user.
+     *
+     * @param message Text message to be displayed.
+     */
+    void showMessage(const std::string& message) const;
 };
 
-
-/*
- * @brief Displays the main menu and reads a valid user option.
- *
- * @return The selected menu option, from 1 to 5.
- */
-//int displayMenu(void);
-
-/*
- * @brief Executes the action associated with the selected menu option.
- *
- * @param selectedOption The menu option selected by the user.
- */
-//void menuSelection(int selectedOption);
-
-/*
- * @brief Reads and validates a menu option from standard input.
- *
- * @return The selected option if valid, otherwise -1.
- */
-// int readOption(void);
-
 #endif
-
