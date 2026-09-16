@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Menu.hpp"
+#include "TaskList.hpp"
 
 /**
  * @brief Program entry point.
@@ -8,28 +9,29 @@
  */
 int main(void)
 {
-    Menu menu({"Create a task", "Read task/s", "Update task", "Delete a task", "Exit"});
- 
+    TaskList taskList;
+    Menu menu({ "Create a task", "Read task/s", "Update task", "Delete a task", "Exit" });
+
     int selectedOption = menu.displayMenu();
- 
+
     switch (selectedOption)
     {
-        case 1:
-            std::cout << "-> Create a task" << std::endl;
-            break;
-        case 2:
-            std::cout << "-> Read task/s" << std::endl;
-            break;
-        case 3:
-            std::cout << "-> Update task" << std::endl;
-            break;
-        case 4:
-            std::cout << "-> Delete a task" << std::endl;
-            break;
-        case 5:
-            std::cout << "Exiting..." << std::endl;
-            break;
+    case 1:
+        menu.showMessage("-> Create a task");
+        break;
+    case 2:
+        menu.displayTasks(taskList);
+        break;
+    case 3:
+        menu.showMessage("-> Update task");
+        break;
+    case 4:
+        menu.showMessage("-> Delete a task");
+        break;
+    case 5:
+        menu.showMessage("Exiting...");
+        break;
     }
- 
+
     return 0;
 }
