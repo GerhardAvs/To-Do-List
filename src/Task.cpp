@@ -37,3 +37,19 @@ std::string statusToString(TaskStatus status) {
     }
     return "Completed";
 }
+
+/**
+ * @brief Converts a menu number into its matching TaskStatus.
+ *
+ * @param value Number from 1 to 3 entered by the user.
+ * @return The matching TaskStatus value.
+ */
+TaskStatus statusFromInt(int value) {
+    if (value == 1) {
+        return TaskStatus::Pending;
+    }
+    if (value == 2) {
+        return TaskStatus::InProgress;
+    }
+    return TaskStatus::Completed;
+}

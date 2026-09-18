@@ -23,9 +23,14 @@ public:
 
     void displayTasks(const TaskList& taskList) const;
     void showMessage(const std::string& message) const;
+    void pause() const;
+
+    TaskStatus askStatus() const;
+    int        askTaskNumber(const TaskList& taskList) const;
 
 private:
     void render(void) const;
 
     std::vector<MenuOption> options;
+
 };

@@ -26,5 +26,6 @@ public:
 };
 
 std::string statusToString(TaskStatus status);
+TaskStatus statusFromInt(int value);
 
 #endif
