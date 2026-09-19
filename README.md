@@ -14,7 +14,7 @@ The project consists of building a **To-Do List application** that allows users 
 
 | Phase       | Content                                    | Status         |
 | ----------- | ------------------------------------------ | -------------- |
-| **Phase 1** | OOP fundamentals and in-memory CRUD        | 🟡 In progress |
+| **Phase 1** | OOP fundamentals and in-memory CRUD        | 🟢 Done         |
 | **Phase 2** | Inheritance, polymorphism, and overloading | ⚪ Pending      |
 | **Phase 3** | Database, file handling, and exceptions    | ⚪ Pending      |
 
@@ -149,17 +149,18 @@ Then:
 When the program starts, a menu similar to the following will be displayed:
 
 ```text
-=============================
-          TO-DO LIST
-=============================
+╔══════════════════════════════════════════════╗
+║         C++ To Do List Manager               ║
+╚══════════════════════════════════════════════╝
 
-1. Add task
-2. List tasks
-3. Change status
-4. Delete task
-5. Exit
+  [1] Create a task
+  [2] Read task/s
+  [3] Update task
+  [4] Delete a task
 
-Select an option:
+  [5] Exit
+────────────────────────────────────────────────
+Select an option: 
 ```
 
 The user will be able to select an option and manage their tasks.
@@ -171,9 +172,9 @@ The user will be able to select an option and manage their tasks.
 Tasks can have one of the following statuses:
 
 ```text
-PENDING
-IN PROGRESS
-COMPLETED
+PENDING = 1
+IN PROGRESS = 2
+COMPLETED = 3
 ```
 
 ---
@@ -243,7 +244,7 @@ Each team member should use Git and make commits as the project progresses.
 
 ```bash
 git add .
-git commit -m "feat: create Task class"
+git commit -m "dev: last updates"
 git push
 ```
 
@@ -252,16 +253,15 @@ Small and descriptive commits are recommended.
 ### Commit Examples
 
 ```text
-feat: create Task class
-feat: implement TaskList
-feat: add task creation functionality
-feat: implement task listing
-feat: implement status change
-feat: implement task deletion
-fix: validate menu option
-fix: validate task ID
-docs: update README
-docs: add UML diagram
+feature/task: create Task class
+feature/task: implement TaskList
+feature/task: add task creation functionality
+feature/task: implement task listing
+feature/task: implement status change
+feature/task: implement task deletion
+feature/menu: validate menu option
+feature/menu: validate task ID
+docs: add kanban
 ```
 
 ---
@@ -274,10 +274,9 @@ To avoid working directly on `main`, branches are recommended:
 main
 │
 ├── feature/task
-├── feature/task-list
 ├── feature/menu
-├── feature/validation
-└── docs/uml
+├── dev
+└── docs
 ```
 
 Once a feature is completed, it can be integrated through a Pull Request.
@@ -288,16 +287,16 @@ Once a feature is completed, it can be integrated through a Pull Request.
 
 ## 🟡 Phase 1 — Fundamentals
 
-* [ ] Create `Task` class.
-* [ ] Create `TaskList` class.
-* [ ] Implement task creation.
-* [ ] Implement task listing.
-* [ ] Implement status changes.
-* [ ] Implement task deletion.
-* [ ] Implement menu.
-* [ ] Add input validation.
+* [x] Create `Task` class.
+* [x] Create `TaskList` class.
+* [x] Implement task creation.
+* [x] Implement task listing.
+* [x] Implement status changes.
+* [x] Implement task deletion.
+* [x] Implement menu.
+* [x] Add input validation.
 * [ ] Create UML diagram.
-* [ ] Document Kanban board.
+* [x] Document Kanban board.
 * [ ] Perform tests.
 
 ## ⚪ Phase 2 — Inheritance and Polymorphism
@@ -341,12 +340,10 @@ Tests should mainly verify the following:
 
 | Member   | Role / Responsibilities |
 | -------- | ----------------------- |
-| Member 1 | Development             |
-| Member 2 | Development             |
-| Member 3 | Development             |
-| Member 4 | Development             |
-
-> Update this section with the actual names and responsibilities of the team members.
+| Gerardo  | Main developer          |
+| Daniel   | feature/task            |
+| Isacar   | implement code on dev   |
+| Ruben    | Documentation           |
 
 ---
 
