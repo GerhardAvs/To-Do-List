@@ -12,11 +12,11 @@ The project consists of building a **To-Do List application** that allows users 
 
 ### Project Phases
 
-| Phase       | Content                                    | Status         |
-| ----------- | ------------------------------------------ | -------------- |
-| **Phase 1** | OOP fundamentals and in-memory CRUD        | 🟢 Done         |
-| **Phase 2** | Inheritance, polymorphism, and overloading | ⚪ Pending      |
-| **Phase 3** | Database, file handling, and exceptions    | ⚪ Pending      |
+| Phase       | Content                                    | Status          | Limit date (2026) | Score |
+| ----------- | ------------------------------------------ | --------------- | ----------------- | ----- |  
+| **Phase 1** | OOP fundamentals and in-memory CRUD        | 🟢 Done         |   Sep 18th       |  94%  |
+| **Phase 2** | Inheritance, polymorphism, and overloading | 🟠 In progress  |   Oct 22nd       |   0%  |
+| **Phase 3** | Database, file handling, and exceptions    | ⚪ Pending      |   Nov 26th       |   0%  |
 
 ---
 
