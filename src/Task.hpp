@@ -27,7 +27,8 @@ private:
 
 public:
     Task(const std::string& title, const std::string& description, TaskStatus status);
-
+    virtual ~Task() = default;
+    
     const std::string& getTitle() const;
     const std::string& getDescription() const;
     TaskStatus getStatus() const;
