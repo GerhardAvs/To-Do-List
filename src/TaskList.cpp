@@ -18,8 +18,12 @@ bool TaskList::isValidIndex(int index) const {
  * @param status      Initial progress state of the task.
  */
 void TaskList::addTask(const std::string& title, const std::string& description, TaskStatus status) {
-    this->tasks.push_back(Task(title, description, status));
+    this->tasks.push_back(std::make_unique<Task>(title, description, status));
 }
+
+//    void addPriorityTask(const std::string& title, const std::string& description, TaskStatus status, TaskPriority priority){}
+//    void addTaskWithDate(const std::string& title, const std::string& description, TaskStatus status, ...){}
+
 
 /**
  * @brief Replaces the title of a stored task.
@@ -33,7 +37,7 @@ bool TaskList::updateTaskTitle(int index, const std::string& title) {
         return false;
     }
 
-    this->tasks[index].setTitle(title);
+    this->tasks[index]->setTitle(title);
     return true;
 }
 
@@ -49,7 +53,7 @@ bool TaskList::updateTaskDescription(int index, const std::string& description) 
         return false;
     }
 
-    this->tasks[index].setDescription(description);
+    this->tasks[index]->setDescription(description);
     return true;
 }
 
@@ -65,7 +69,7 @@ bool TaskList::updateTaskStatus(int index, TaskStatus status) {
         return false;
     }
 
-    this->tasks[index].setStatus(status);
+    this->tasks[index]->setStatus(status);
     return true;
 }
 
@@ -107,6 +111,6 @@ int TaskList::getTaskCount() const {
  *
  * @return Constant reference to the internal vector of tasks.
  */
-const std::vector<Task>& TaskList::getTasks() const {
+const std::vector<std::unique_ptr<Task>>& TaskList::getTasks() const{
     return this->tasks;
 }
