@@ -30,8 +30,33 @@ public:
      */
     PriorityTask(const std::string& title, const std::string& description, TaskStatus status, TaskPriority priority);
 
+    /**
+     * @brief Overload: constructs a Pending task with the given priority.
+     * 
+     * @param title Short name of the task.
+     * @param description Detailed description of the task.
+     * @param priority Task priority level (Low, Medium, High).
+     */
+    PriorityTask(const std::string& title, const std::string& description, TaskPriority priority);
+
+    /**
+     * @brief Overload: constructs a Pending task with Medium priority.
+     * 
+     * @param title Short name of the task.
+     * @param description Detailed description of the task.
+     */
+    PriorityTask(const std::string& title, const std::string& description);
+
     TaskPriority getPriority() const;
     void setPriority(TaskPriority priority);
+
+    /**
+     * @brief Overload: sets the priority from text typed by the user.
+     * 
+     * @param level "low", "medium" or "high" (also "baja", "media", "alta").
+     * @throws std::invalid_argument If the text is not a known priority.
+     */
+    void setPriority(const std::string& level);
 
     /**
      * @brief Prints task details including the priority level.

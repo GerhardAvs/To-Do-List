@@ -1,31 +1,38 @@
+#include <iostream>
+#include <stdexcept>
 #include "PriorityTask.hpp"
-
-PriorityTask::PriorityTask(const std::string& title, const std::string& description, TaskStatus status, TaskPriority priority)
-    : Task(title, description, status), priority(priority) {}
-
-TaskPriority PriorityTask::getPriority() const {
-    return this->priority;
+ 
+static int failures = 0;
+static void check(bool ok, const char* name) {
+    std::cout << (ok ? "[OK]   " : "[FAIL] ") << name << "\n";
+    if (!ok) ++failures;
 }
-
-void PriorityTask::setPriority(TaskPriority priority) {
-    this->priority = priority;
+ 
+int main() {
+    PriorityTask a("A", "completa", TaskStatus::InProgress, TaskPriority::High);
+    check(a.getPriority() == TaskPriority::High, "constructor de 4 parametros");
+ 
+    PriorityTask b("B", "sin status", TaskPriority::Low);
+    check(b.getPriority() == TaskPriority::Low, "constructor (titulo, descripcion, prioridad)");
+ 
+    PriorityTask c("C", "minima");
+    check(c.getPriority() == TaskPriority::Medium, "constructor (titulo, descripcion) -> Medium");
+ 
+    c.setPriority(TaskPriority::High);
+    check(c.getPriority() == TaskPriority::High, "setPriority(TaskPriority)");
+ 
+    c.setPriority("low");
+    check(c.getPriority() == TaskPriority::Low, "setPriority(\"low\")");
+    c.setPriority("  ALTA ");
+    check(c.getPriority() == TaskPriority::High, "setPriority(\"  ALTA \") ignora mayusculas y espacios");
+    c.setPriority(std::string("media"));
+    check(c.getPriority() == TaskPriority::Medium, "setPriority(std::string)");
+ 
+    bool threw = false;
+    try { c.setPriority("urgentisima"); } catch (const std::invalid_argument&) { threw = true; }
+    check(threw && c.getPriority() == TaskPriority::Medium, "texto invalido lanza excepcion y no cambia la prioridad");
+ 
+    a.printDetails(std::cout); std::cout << "\n";
+    return failures;
 }
-
-/**
- * @brief Appends priority details to the output stream.
- * 
- * @param os Output stream to write to.
- */
-void PriorityTask::printDetails(std::ostream& os) const {
-    Task::printDetails(os);
-    os << " | Priority: " << priorityToString(this->priority);
-}
-
-std::string priorityToString(TaskPriority priority) {
-    switch (priority) {
-        case TaskPriority::Low:    return "Low";
-        case TaskPriority::Medium: return "Medium";
-        case TaskPriority::High:   return "High";
-        default:                   return "Unknown";
-    }
-}
+ 
