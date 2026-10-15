@@ -11,19 +11,41 @@ bool TaskList::isValidIndex(int index) const {
 }
 
 /**
- * @brief Creates a task and stores it at the end of the list.
+ * @brief Creates a standard task and stores it at the end of the list.
  *
- * @param title       Short name of the task.
+ * @param title Short name of the task.
  * @param description Detailed text explaining the task.
- * @param status      Initial progress state of the task.
+ * @param status Initial progress state of the task.
  */
 void TaskList::addTask(const std::string& title, const std::string& description, TaskStatus status) {
     this->tasks.push_back(std::make_unique<Task>(title, description, status));
 }
 
-//    void addPriorityTask(const std::string& title, const std::string& description, TaskStatus status, TaskPriority priority){}
-//    void addTaskWithDate(const std::string& title, const std::string& description, TaskStatus status, ...){}
+/**
+ * @brief Creates a PriorityTask and stores it at the end of the list.
+ *
+ * @param title Short name of the task.
+ * @param description Detailed text explaining the task.
+ * @param status Initial progress state of the task.
+ * @param priority Priority level of the task.
+ */
+void TaskList::addPriorityTask(const std::string& title, const std::string& description, TaskStatus status, TaskPriority priority) {
+    this->tasks.push_back(std::make_unique<PriorityTask>(title, description, status, priority));
+}
 
+/**
+ * @brief Creates a TaskWithDate and stores it at the end of the list.
+ *
+ * @param title Short name of the task.
+ * @param description Detailed text explaining the task.
+ * @param status Initial progress state of the task.
+ * @param day Day of the target due date.
+ * @param month Month of the target due date.
+ * @param year Year of the target due date.
+ */
+void TaskList::addTaskWithDate(const std::string& title, const std::string& description, TaskStatus status, int day, int month, int year) {
+    this->tasks.push_back(std::make_unique<TaskWithDate>(title, description, status, day, month, year));
+}
 
 /**
  * @brief Replaces the title of a stored task.
@@ -44,7 +66,7 @@ bool TaskList::updateTaskTitle(int index, const std::string& title) {
 /**
  * @brief Replaces the description of a stored task.
  *
- * @param index       Zero-based index of the task.
+ * @param index Zero-based index of the task.
  * @param description The new description.
  * @return True when the task exists, false otherwise.
  */
@@ -60,7 +82,7 @@ bool TaskList::updateTaskDescription(int index, const std::string& description) 
 /**
  * @brief Replaces the progress state of a stored task.
  *
- * @param index  Zero-based index of the task.
+ * @param index Zero-based index of the task.
  * @param status The new status.
  * @return True when the task exists, false otherwise.
  */
@@ -111,6 +133,6 @@ int TaskList::getTaskCount() const {
  *
  * @return Constant reference to the internal vector of tasks.
  */
-const std::vector<std::unique_ptr<Task>>& TaskList::getTasks() const{
+const std::vector<std::unique_ptr<Task>>& TaskList::getTasks() const {
     return this->tasks;
 }

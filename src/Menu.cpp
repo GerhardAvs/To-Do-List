@@ -1,5 +1,4 @@
 #include "Menu.hpp"
-
 #include "InputValidator.hpp"
 
 #include <cstdlib>
@@ -15,7 +14,7 @@ const std::string separatorLine = "───────────────
 /**
  * @brief Adds a new option together with the action it must run.
  *
- * @param label  Text shown in the menu.
+ * @param label Text shown in the menu.
  * @param action Function executed when the option is selected.
  */
 void Menu::addOption(const std::string& label, std::function<void()> action) {
@@ -68,6 +67,7 @@ void Menu::execute(int choice) const {
 
 /**
  * @brief Prints every task stored in a list, numbered from one.
+ * Uses dynamic dispatch via printDetails() to print sub-class specifics.
  *
  * @param taskList The list whose tasks are printed.
  */
@@ -77,17 +77,18 @@ void Menu::displayTasks(const TaskList& taskList) const {
         return;
     }
 
-    const std::vector<Task>& tasks = taskList.getTasks();
+    const auto& tasks = taskList.getTasks();
 
     std::cout << "\n--- TASK LIST (" << tasks.size() << ") ---" << std::endl;
 
     for (std::size_t i = 0; i < tasks.size(); ++i) {
-        const Task& task = tasks[i];
+        const Task& task = *tasks[i];
 
         std::cout << "  [" << (i + 1) << "] " << task.getTitle() << std::endl;
-        std::cout << "      Description: " << task.getDescription() << std::endl;
-        std::cout << "      Status: " << statusToString(task.getStatus())
-                  << " | Created: " << task.getCreationDate() << std::endl;
+        
+        // Llamada polimórfica a la función virtual printDetails()
+        task.printDetails(std::cout);
+        std::cout << std::endl;
     }
 }
 
@@ -169,4 +170,39 @@ int Menu::askTaskIndex(const TaskList& taskList) const {
     std::cout << "\nTask number: ";
 
     return InputValidator::readIntInRange(1, taskList.getTaskCount()) - 1;
+}
+
+/**
+ * @brief Prompts the user to select a priority level for a PriorityTask.
+ *
+ * @return The selected TaskPriority value.
+ */
+TaskPriority Menu::askPriority() const {
+    std::cout << std::endl;
+    std::cout << "  [" << static_cast<int>(TaskPriority::Low)    << "] Low"    << std::endl;
+    std::cout << "  [" << static_cast<int>(TaskPriority::Medium) << "] Medium" << std::endl;
+    std::cout << "  [" << static_cast<int>(TaskPriority::High)   << "] High"   << std::endl;
+    std::cout << "Select priority level: ";
+
+    int choice = InputValidator::readIntInRange(1, 3);
+    return static_cast<TaskPriority>(choice);
+}
+
+/**
+ * @brief Prompts the user to input day, month, and year values for a TaskWithDate.
+ *
+ * @param day Reference parameter to store the day.
+ * @param month Reference parameter to store the month.
+ * @param year Reference parameter to store the year.
+ */
+void Menu::askDate(int& day, int& month, int& year) const {
+    std::cout << "\nEnter target date details:" << std::endl;
+    std::cout << "  Year (2024-2100): ";
+    year = InputValidator::readIntInRange(2024, 2100);
+
+    std::cout << "  Month (1-12): ";
+    month = InputValidator::readIntInRange(1, 12);
+
+    std::cout << "  Day (1-31): ";
+    day = InputValidator::readIntInRange(1, 31);
 }

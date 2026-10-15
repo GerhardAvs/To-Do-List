@@ -2,6 +2,7 @@
 #define MENU_HPP
 
 #include "TaskList.hpp"
+#include "PriorityTask.hpp"
 
 #include <functional>
 #include <string>
@@ -30,6 +31,11 @@ public:
     int displayMenu() const;
     void execute(int choice) const;
 
+    /**
+     * @brief Prints every task stored in a list using polymorphic dynamic dispatch.
+     *
+     * @param taskList The list whose tasks are printed.
+     */
     void displayTasks(const TaskList& taskList) const;
     void showMessage(const std::string& message) const;
     void pause() const;
@@ -40,6 +46,22 @@ public:
     std::string askDescriptionOrKeep() const;
     TaskStatus askStatus() const;
     int askTaskIndex(const TaskList& taskList) const;
+
+    /**
+     * @brief Prompts the user to select a priority level for a PriorityTask.
+     *
+     * @return The selected TaskPriority value.
+     */
+    TaskPriority askPriority() const;
+
+    /**
+     * @brief Prompts the user to input day, month, and year values for a TaskWithDate.
+     *
+     * @param day Reference parameter to store the day.
+     * @param month Reference parameter to store the month.
+     * @param year Reference parameter to store the year.
+     */
+    void askDate(int& day, int& month, int& year) const;
 };
 
 #endif
