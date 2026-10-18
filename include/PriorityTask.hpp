@@ -19,10 +19,19 @@ class PriorityTask : public Task {
 private:
     TaskPriority priority;
 
+    /**
+     * @brief Converts text such as "high" or "alta" into a TaskPriority.
+     *
+     * @param level Text typed by the user.
+     * @return Matching TaskPriority.
+     * @throws std::invalid_argument If the text is not a known priority.
+     */
+    static TaskPriority stringToPriority(const std::string& level);
+
 public:
     /**
      * @brief Constructs a PriorityTask object.
-     * 
+     *
      * @param title Short name of the task.
      * @param description Detailed description of the task.
      * @param status Initial progress state.
@@ -32,7 +41,7 @@ public:
 
     /**
      * @brief Overload: constructs a Pending task with the given priority.
-     * 
+     *
      * @param title Short name of the task.
      * @param description Detailed description of the task.
      * @param priority Task priority level (Low, Medium, High).
@@ -41,7 +50,7 @@ public:
 
     /**
      * @brief Overload: constructs a Pending task with Medium priority.
-     * 
+     *
      * @param title Short name of the task.
      * @param description Detailed description of the task.
      */
@@ -52,7 +61,7 @@ public:
 
     /**
      * @brief Overload: sets the priority from text typed by the user.
-     * 
+     *
      * @param level "low", "medium" or "high" (also "baja", "media", "alta").
      * @throws std::invalid_argument If the text is not a known priority.
      */
@@ -60,7 +69,7 @@ public:
 
     /**
      * @brief Prints task details including the priority level.
-     * 
+     *
      * @param os Output stream to write to.
      */
     void printDetails(std::ostream& os = std::cout) const override;

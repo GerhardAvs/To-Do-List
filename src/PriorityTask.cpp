@@ -4,8 +4,6 @@
 #include <cctype>
 #include <stdexcept>
 
-namespace
-{
 /**
  * @brief Converts text such as "high" or "alta" into a TaskPriority.
  *
@@ -15,7 +13,7 @@ namespace
  * @return Matching TaskPriority.
  * @throws std::invalid_argument If the text is not a known priority.
  */
-TaskPriority stringToPriority(const std::string& level)
+TaskPriority PriorityTask::stringToPriority(const std::string& level)
 {
     std::string text = level;
 
@@ -70,7 +68,6 @@ TaskPriority stringToPriority(const std::string& level)
 
     throw std::invalid_argument("Invalid priority: \"" + level + "\"");
 }
-}  // namespace
 
 /**
  * @brief Constructs a PriorityTask with all of its fields.
