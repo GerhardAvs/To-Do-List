@@ -12,6 +12,9 @@ enum class TaskPriority {
     High = 3
 };
 
+/** @brief Amount of values declared in TaskPriority. */
+constexpr int taskPriorityCount = 3;
+
 /**
  * @brief Derived class representing a task with a priority level.
  */

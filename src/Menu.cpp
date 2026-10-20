@@ -1,5 +1,6 @@
 #include "Menu.hpp"
 #include "InputValidator.hpp"
+#include "TaskWithDate.hpp"
 
 #include <cstdlib>
 #include <iostream>
@@ -86,7 +87,7 @@ void Menu::displayTasks(const TaskList& taskList) const {
 
         std::cout << "  [" << (i + 1) << "] " << task.getTitle() << std::endl;
         
-        // Llamada polimórfica a la función virtual printDetails()
+        // Polymorphic call to the virtual printDetails() function.
         task.printDetails(std::cout);
         std::cout << std::endl;
     }
@@ -184,7 +185,7 @@ TaskPriority Menu::askPriority() const {
     std::cout << "  [" << static_cast<int>(TaskPriority::High)   << "] High"   << std::endl;
     std::cout << "Select priority level: ";
 
-    int choice = InputValidator::readIntInRange(1, 3);
+    int choice = InputValidator::readIntInRange(1, taskPriorityCount);
     return static_cast<TaskPriority>(choice);
 }
 
@@ -197,12 +198,14 @@ TaskPriority Menu::askPriority() const {
  */
 void Menu::askDate(int& day, int& month, int& year) const {
     std::cout << "\nEnter target date details:" << std::endl;
-    std::cout << "  Year (2024-2100): ";
-    year = InputValidator::readIntInRange(2024, 2100);
+    std::cout << "  Year (" << minYear << "-" << maxYear << "): ";
+    year = InputValidator::readIntInRange(minYear, maxYear);
 
     std::cout << "  Month (1-12): ";
     month = InputValidator::readIntInRange(1, 12);
 
-    std::cout << "  Day (1-31): ";
-    day = InputValidator::readIntInRange(1, 31);
+    const int lastDay = daysInMonth(month, year);
+
+    std::cout << "  Day (1-" << lastDay << "): ";
+    day = InputValidator::readIntInRange(1, lastDay);
 }
