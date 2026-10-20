@@ -4,6 +4,12 @@
 #include "Task.hpp"
 #include <string>
 
+/** @brief Earliest year accepted for a task due date. */
+constexpr int minYear = 2024;
+
+/** @brief Latest year accepted for a task due date. */
+constexpr int maxYear = 2100;
+
 /**
  * @brief Derived class representing a task that has a specific target date.
  */
@@ -13,20 +19,10 @@ private:
     int month;
     int year;
 
-protected:
-    /**
-     * @brief Calculates the total number of days in a given month.
-     * 
-     * @param month Month value (1 to 12).
-     * @param year Year value.
-     * @return Number of days in the specified month.
-     */
-    int daysInMonth(int month, int year) const;
-
 public:
     /**
      * @brief Constructs a TaskWithDate object.
-     * 
+     *
      * @param title Short name of the task.
      * @param description Detailed text.
      * @param status Initial progress state.
@@ -34,11 +30,18 @@ public:
      * @param month Month of the target date.
      * @param year Year of the target date.
      */
-    TaskWithDate(const std::string& title, const std::string& description, TaskStatus status, int day, int month, int year);
+    TaskWithDate(
+        const std::string& title,
+        const std::string& description,
+        TaskStatus status,
+        int day,
+        int month,
+        int year
+    );
 
     /**
      * @brief Validates and stores a new target date.
-     * 
+     *
      * @param day Day value.
      * @param month Month value.
      * @param year Year value.
@@ -47,17 +50,26 @@ public:
 
     /**
      * @brief Formats the date into a YYYY-MM-DD string.
-     * 
+     *
      * @return Formatted date string.
      */
     std::string getDate() const;
 
     /**
      * @brief Prints task details including the target due date.
-     * 
+     *
      * @param os Output stream to write to.
      */
     void printDetails(std::ostream& os = std::cout) const override;
 };
+
+/**
+ * @brief Calculates the total number of days in a given month.
+ *
+ * @param month Month value from 1 to 12.
+ * @param year Year value.
+ * @return Number of days in the specified month.
+ */
+int daysInMonth(int month, int year);
 
 #endif
