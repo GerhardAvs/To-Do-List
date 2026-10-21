@@ -48,6 +48,32 @@ void TaskList::addTaskWithDate(const std::string& title, const std::string& desc
 }
 
 /**
+ * @brief Checks if the task at the specified index is a PriorityTask.
+ *
+ * @param index Zero-based index of the task.
+ * @return True if the task is a PriorityTask, false otherwise.
+ */
+bool TaskList::isPriorityTask(int index) const {
+    if (!this->isValidIndex(index)) {
+        return false;
+    }
+    return dynamic_cast<const PriorityTask*>(this->tasks[index].get()) != nullptr;
+}
+
+/**
+ * @brief Checks if the task at the specified index is a TaskWithDate.
+ *
+ * @param index Zero-based index of the task.
+ * @return True if the task is a TaskWithDate, false otherwise.
+ */
+bool TaskList::isTaskWithDate(int index) const {
+    if (!this->isValidIndex(index)) {
+        return false;
+    }
+    return dynamic_cast<const TaskWithDate*>(this->tasks[index].get()) != nullptr;
+}
+
+/**
  * @brief Replaces the title of a stored task.
  *
  * @param index Zero-based index of the task.
@@ -92,6 +118,50 @@ bool TaskList::updateTaskStatus(int index, TaskStatus status) {
     }
 
     this->tasks[index]->setStatus(status);
+    return true;
+}
+
+/**
+ * @brief Updates the priority level of a PriorityTask.
+ *
+ * @param index Zero-based index of the task.
+ * @param priority The new priority level.
+ * @return True if the task exists and is a PriorityTask, false otherwise.
+ */
+bool TaskList::updateTaskPriority(int index, TaskPriority priority) {
+    if (!this->isValidIndex(index)) {
+        return false;
+    }
+
+    auto* task = dynamic_cast<PriorityTask*>(this->tasks[index].get());
+    if (task == nullptr) {
+        return false;
+    }
+
+    task->setPriority(priority);
+    return true;
+}
+
+/**
+ * @brief Updates the target due date of a TaskWithDate.
+ *
+ * @param index Zero-based index of the task.
+ * @param day Day of the target date.
+ * @param month Month of the target date.
+ * @param year Year of the target date.
+ * @return True if the task exists and is a TaskWithDate, false otherwise.
+ */
+bool TaskList::updateTaskDate(int index, int day, int month, int year) {
+    if (!this->isValidIndex(index)) {
+        return false;
+    }
+
+    auto* task = dynamic_cast<TaskWithDate*>(this->tasks[index].get());
+    if (task == nullptr) {
+        return false;
+    }
+
+    task->setDate(day, month, year);
     return true;
 }
 

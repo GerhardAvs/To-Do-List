@@ -13,11 +13,22 @@ void registerCreateOption(Menu& menu, TaskList& taskList) {
     menu.addOption("Create a task", [&menu, &taskList]() {
         menu.showMessage("-> Create a task");
 
+        const TaskType type = menu.askTaskType();
         const std::string title = menu.askTitle();
         const std::string description = menu.askDescription();
         const TaskStatus status = menu.askStatus();
 
-        taskList.addTask(title, description, status);
+        if (type == TaskType::Normal) {
+            taskList.addTask(title, description, status);
+        } else if (type == TaskType::Priority) {
+            const TaskPriority priority = menu.askPriority();
+            taskList.addPriorityTask(title, description, status, priority);
+        } else if (type == TaskType::WithDate) {
+            int day = 1, month = 1, year = 2024;
+            menu.askDate(day, month, year);
+            taskList.addTaskWithDate(title, description, status, day, month, year);
+        }
+
         menu.showMessage("\n>> Task created successfully.");
     });
 }
@@ -63,7 +74,19 @@ void registerUpdateOption(Menu& menu, TaskList& taskList) {
             taskList.updateTaskDescription(index, description);
         }
 
-        if (taskList.updateTaskStatus(index, status)) {
+        bool statusUpdated = taskList.updateTaskStatus(index, status);
+
+        // Actualizacion especifica segun el tipo polimorfico
+        if (taskList.isPriorityTask(index)) {
+            const TaskPriority priority = menu.askPriority();
+            taskList.updateTaskPriority(index, priority);
+        } else if (taskList.isTaskWithDate(index)) {
+            int day = 1, month = 1, year = 2024;
+            menu.askDate(day, month, year);
+            taskList.updateTaskDate(index, day, month, year);
+        }
+
+        if (statusUpdated) {
             menu.showMessage("\n>> Task updated successfully.");
         } else {
             menu.showMessage("\n>> Could not update the task.");

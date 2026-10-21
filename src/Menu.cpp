@@ -162,6 +162,21 @@ TaskStatus Menu::askStatus() const {
 }
 
 /**
+ * @brief Shows available task types and reads the chosen one.
+ *
+ * @return The TaskType selected by the user.
+ */
+TaskType Menu::askTaskType() const {
+    std::cout << std::endl;
+    std::cout << "  [" << static_cast<int>(TaskType::Normal)   << "] Normal"        << std::endl;
+    std::cout << "  [" << static_cast<int>(TaskType::Priority) << "] With priority" << std::endl;
+    std::cout << "  [" << static_cast<int>(TaskType::WithDate) << "] With due date" << std::endl;
+    std::cout << "Select task type: ";
+
+    return static_cast<TaskType>(InputValidator::readIntInRange(1, taskTypeCount));
+}
+
+/**
  * @brief Asks the user to pick a task by its listed number.
  *
  * @param taskList The list the user is choosing from.

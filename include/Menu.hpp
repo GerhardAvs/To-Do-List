@@ -9,6 +9,18 @@
 #include <vector>
 
 /**
+ * @brief Represents the available task types for creation.
+ */
+enum class TaskType {
+    Normal = 1,
+    Priority = 2,
+    WithDate = 3
+};
+
+/** @brief Amount of values declared in TaskType. */
+constexpr int taskTypeCount = 3;
+
+/**
  * @brief A menu entry: the text shown and the action it runs.
  */
 struct MenuOption {
@@ -45,6 +57,7 @@ public:
     std::string askDescription() const;
     std::string askDescriptionOrKeep() const;
     TaskStatus askStatus() const;
+    TaskType askTaskType() const;
     int askTaskIndex(const TaskList& taskList) const;
 
     /**

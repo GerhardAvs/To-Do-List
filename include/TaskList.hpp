@@ -52,9 +52,15 @@ public:
      */
     void addTaskWithDate(const std::string& title, const std::string& description, TaskStatus status, int day, int month, int year);
 
+    bool isPriorityTask(int index) const;
+    bool isTaskWithDate(int index) const;
+
     bool updateTaskTitle(int index, const std::string& title);
     bool updateTaskDescription(int index, const std::string& description);
     bool updateTaskStatus(int index, TaskStatus status);
+    bool updateTaskPriority(int index, TaskPriority priority);
+    bool updateTaskDate(int index, int day, int month, int year);
+
     bool deleteTask(int index);
 
     bool isEmpty() const;
