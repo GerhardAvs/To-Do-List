@@ -2,6 +2,7 @@
 
 #include <iomanip>
 #include <sstream>
+#include <stdexcept>
 
 /**
  * @brief Constructs a task with a validated target date.
@@ -12,6 +13,7 @@
  * @param day Day of the target date.
  * @param month Month of the target date.
  * @param year Year of the target date.
+ * @throws std::invalid_argument If the date is not valid.
  */
 TaskWithDate::TaskWithDate(
     const std::string& title,
@@ -22,7 +24,27 @@ TaskWithDate::TaskWithDate(
     int year
 )
     : Task(title, description, status) {
-    setDate(day, month, year);
+    this->setDate(day, month, year);
+}
+
+/**
+ * @brief Overload: constructs a Pending task with a target date.
+ *
+ * @param title Short name of the task.
+ * @param description Detailed text.
+ * @param day Day of the target date.
+ * @param month Month of the target date.
+ * @param year Year of the target date.
+ * @throws std::invalid_argument If the date is not valid.
+ */
+TaskWithDate::TaskWithDate(
+    const std::string& title,
+    const std::string& description,
+    int day,
+    int month,
+    int year
+)
+    : TaskWithDate(title, description, TaskStatus::Pending, day, month, year) {
 }
 
 /**
@@ -48,31 +70,68 @@ int daysInMonth(int month, int year) {
 }
 
 /**
+ * @brief Tells whether a day, month and year form a valid due date.
+ *
+ * @param day Day value.
+ * @param month Month value.
+ * @param year Year value.
+ * @return True when the date exists and is inside the accepted range.
+ */
+bool isValidDate(int day, int month, int year) {
+    if (year < minYear || year > maxYear) {
+        return false;
+    }
+
+    if (month < 1 || month > monthsPerYear) {
+        return false;
+    }
+
+    return day >= 1 && day <= daysInMonth(month, year);
+}
+
+/**
  * @brief Validates and stores a target date.
  *
  * @param day Day value.
  * @param month Month value.
  * @param year Year value.
+ * @throws std::invalid_argument If the date is not valid.
  */
 void TaskWithDate::setDate(int day, int month, int year) {
-    this->year = year;
-
-    if (this->year < minYear || this->year > maxYear) {
-        this->year = minYear;
+    if (!isValidDate(day, month, year)) {
+        throw std::invalid_argument("Invalid due date.");
     }
 
-    this->month = month;
-
-    if (this->month < 1 || this->month > 12) {
-        this->month = 1;
-    }
-
-    const int lastDay = daysInMonth(this->month, this->year);
     this->day = day;
+    this->month = month;
+    this->year = year;
+}
 
-    if (this->day < 1 || this->day > lastDay) {
-        this->day = 1;
-    }
+/**
+ * @brief Gets the day of the due date.
+ *
+ * @return Day value.
+ */
+int TaskWithDate::getDay() const {
+    return this->day;
+}
+
+/**
+ * @brief Gets the month of the due date.
+ *
+ * @return Month value.
+ */
+int TaskWithDate::getMonth() const {
+    return this->month;
+}
+
+/**
+ * @brief Gets the year of the due date.
+ *
+ * @return Year value.
+ */
+int TaskWithDate::getYear() const {
+    return this->year;
 }
 
 /**
@@ -91,11 +150,20 @@ std::string TaskWithDate::getDate() const {
 }
 
 /**
+ * @brief Names the kind of task.
+ *
+ * @return "With due date".
+ */
+std::string TaskWithDate::getTypeName() const {
+    return "With due date";
+}
+
+/**
  * @brief Appends date information to the output stream.
  *
  * @param os Output stream to write to.
  */
 void TaskWithDate::printDetails(std::ostream& os) const {
     Task::printDetails(os);
-    os << " | Due Date: " << getDate();
+    os << " | Due Date: " << this->getDate();
 }

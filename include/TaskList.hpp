@@ -31,17 +31,17 @@ public:
     void addTask(const std::string& title, const std::string& description, TaskStatus status);
 
     /**
-     * @brief Creates a PriorityTask and stores it at the end of the list.
+     * @brief Overload: creates a PriorityTask and stores it at the end of the list.
      *
      * @param title Short name of the task.
      * @param description Detailed text explaining the task.
      * @param status Initial progress state of the task.
      * @param priority Priority level of the task.
      */
-    void addPriorityTask(const std::string& title, const std::string& description, TaskStatus status, TaskPriority priority);
+    void addTask(const std::string& title, const std::string& description, TaskStatus status, TaskPriority priority);
 
     /**
-     * @brief Creates a TaskWithDate and stores it at the end of the list.
+     * @brief Overload: creates a TaskWithDate and stores it at the end of the list.
      *
      * @param title Short name of the task.
      * @param description Detailed text explaining the task.
@@ -49,8 +49,9 @@ public:
      * @param day Day of the target due date.
      * @param month Month of the target due date.
      * @param year Year of the target due date.
+     * @return True when the date is valid and the task was added, false otherwise.
      */
-    void addTaskWithDate(const std::string& title, const std::string& description, TaskStatus status, int day, int month, int year);
+    bool addTask(const std::string& title, const std::string& description, TaskStatus status, int day, int month, int year);
 
     bool isPriorityTask(int index) const;
     bool isTaskWithDate(int index) const;
@@ -74,4 +75,4 @@ public:
     const std::vector<std::unique_ptr<Task>>& getTasks() const;
 };
 
-#endif
+#endif  // TASK_LIST_HPP

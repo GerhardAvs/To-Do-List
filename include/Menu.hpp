@@ -1,8 +1,8 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 
-#include "TaskList.hpp"
 #include "PriorityTask.hpp"
+#include "TaskList.hpp"
 
 #include <functional>
 #include <string>
@@ -35,6 +35,9 @@ class Menu {
 private:
     std::vector<MenuOption> options;
 
+    /**
+     * @brief Draws the header and the list of registered options.
+     */
     void render() const;
 
 public:
@@ -77,4 +80,4 @@ public:
     void askDate(int& day, int& month, int& year) const;
 };
 
-#endif
+#endif  // MENU_HPP

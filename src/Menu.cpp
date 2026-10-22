@@ -10,6 +10,17 @@ namespace {
 /** @brief Decorative separator drawn by the menu. */
 const std::string separatorLine = "────────────────────────────────────────────────";
 
+/**
+ * @brief Clears the console on Windows, Linux and macOS.
+ */
+void clearScreen() {
+#ifdef _WIN32
+    std::system("cls");
+#else
+    std::system("clear");
+#endif
+}
+
 }  // namespace
 
 /**
@@ -51,7 +62,7 @@ void Menu::render() const {
  * @return The option number selected by the user.
  */
 int Menu::displayMenu() const {
-    system("clear");
+    clearScreen();
     this->render();
 
     return InputValidator::readIntInRange(1, static_cast<int>(this->options.size()));
@@ -85,11 +96,10 @@ void Menu::displayTasks(const TaskList& taskList) const {
     for (std::size_t i = 0; i < tasks.size(); ++i) {
         const Task& task = *tasks[i];
 
-        std::cout << "  [" << (i + 1) << "] " << task.getTitle() << std::endl;
-        
-        // Polymorphic call to the virtual printDetails() function.
-        task.printDetails(std::cout);
-        std::cout << std::endl;
+        // getTypeName() and operator<< (printDetails) are resolved at runtime.
+        std::cout << "  [" << (i + 1) << "] " << task.getTitle()
+                  << " (" << task.getTypeName() << ")" << std::endl;
+        std::cout << task << std::endl;
     }
 }
 
@@ -106,8 +116,7 @@ void Menu::showMessage(const std::string& message) const {
  * @brief Waits for the user to press Enter before the menu is drawn again.
  */
 void Menu::pause() const {
-    std::cout << "\n>> Press Enter to continue...";
-    std::cin.get();
+    InputValidator::readLine("\n>> Press Enter to continue...");
 }
 
 /**
@@ -200,8 +209,7 @@ TaskPriority Menu::askPriority() const {
     std::cout << "  [" << static_cast<int>(TaskPriority::High)   << "] High"   << std::endl;
     std::cout << "Select priority level: ";
 
-    int choice = InputValidator::readIntInRange(1, taskPriorityCount);
-    return static_cast<TaskPriority>(choice);
+    return priorityFromInt(InputValidator::readIntInRange(1, taskPriorityCount));
 }
 
 /**
@@ -216,8 +224,8 @@ void Menu::askDate(int& day, int& month, int& year) const {
     std::cout << "  Year (" << minYear << "-" << maxYear << "): ";
     year = InputValidator::readIntInRange(minYear, maxYear);
 
-    std::cout << "  Month (1-12): ";
-    month = InputValidator::readIntInRange(1, 12);
+    std::cout << "  Month (1-" << monthsPerYear << "): ";
+    month = InputValidator::readIntInRange(1, monthsPerYear);
 
     const int lastDay = daysInMonth(month, year);
 

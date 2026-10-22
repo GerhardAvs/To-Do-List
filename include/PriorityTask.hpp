@@ -3,6 +3,8 @@
 
 #include "Task.hpp"
 
+#include <string>
+
 /**
  * @brief Represents the urgency level of a task.
  */
@@ -71,6 +73,13 @@ public:
     void setPriority(const std::string& level);
 
     /**
+     * @brief Names the kind of task.
+     *
+     * @return "Priority".
+     */
+    std::string getTypeName() const override;
+
+    /**
      * @brief Prints task details including the priority level.
      *
      * @param os Output stream to write to.
@@ -79,5 +88,6 @@ public:
 };
 
 std::string priorityToString(TaskPriority priority);
+TaskPriority priorityFromInt(int value);
 
-#endif
+#endif  // PRIORITY_TASK_HPP

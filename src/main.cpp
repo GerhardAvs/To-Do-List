@@ -1,6 +1,9 @@
+#include "InputValidator.hpp"
 #include "Menu.hpp"
 #include "TaskList.hpp"
 
+#include <exception>
+#include <iostream>
 #include <string>
 
 /**
@@ -17,19 +20,28 @@ void registerCreateOption(Menu& menu, TaskList& taskList) {
         const std::string title = menu.askTitle();
         const std::string description = menu.askDescription();
         const TaskStatus status = menu.askStatus();
+        bool created = true;
 
+        // Each call below picks a different addTask() overload.
         if (type == TaskType::Normal) {
             taskList.addTask(title, description, status);
         } else if (type == TaskType::Priority) {
             const TaskPriority priority = menu.askPriority();
-            taskList.addPriorityTask(title, description, status, priority);
+            taskList.addTask(title, description, status, priority);
         } else if (type == TaskType::WithDate) {
-            int day = 1, month = 1, year = 2024;
+            int day = 1;
+            int month = 1;
+            int year = minYear;
+
             menu.askDate(day, month, year);
-            taskList.addTaskWithDate(title, description, status, day, month, year);
+            created = taskList.addTask(title, description, status, day, month, year);
         }
 
-        menu.showMessage("\n>> Task created successfully.");
+        if (created) {
+            menu.showMessage("\n>> Task created successfully.");
+        } else {
+            menu.showMessage("\n>> Could not create the task.");
+        }
     });
 }
 
@@ -39,7 +51,7 @@ void registerCreateOption(Menu& menu, TaskList& taskList) {
  * @param menu     Menu the option is added to.
  * @param taskList List whose tasks are shown.
  */
-void registerReadOption(Menu& menu, TaskList& taskList) {
+void registerReadOption(Menu& menu, const TaskList& taskList) {
     menu.addOption("Read task/s", [&menu, &taskList]() {
         menu.showMessage("-> Read task/s");
         menu.displayTasks(taskList);
@@ -74,19 +86,22 @@ void registerUpdateOption(Menu& menu, TaskList& taskList) {
             taskList.updateTaskDescription(index, description);
         }
 
-        bool statusUpdated = taskList.updateTaskStatus(index, status);
+        bool updated = taskList.updateTaskStatus(index, status);
 
-        // Actualizacion especifica segun el tipo polimorfico
+        // Extra fields depend on the derived type of the selected task.
         if (taskList.isPriorityTask(index)) {
             const TaskPriority priority = menu.askPriority();
-            taskList.updateTaskPriority(index, priority);
+            updated = taskList.updateTaskPriority(index, priority) && updated;
         } else if (taskList.isTaskWithDate(index)) {
-            int day = 1, month = 1, year = 2024;
+            int day = 1;
+            int month = 1;
+            int year = minYear;
+
             menu.askDate(day, month, year);
-            taskList.updateTaskDate(index, day, month, year);
+            updated = taskList.updateTaskDate(index, day, month, year) && updated;
         }
 
-        if (statusUpdated) {
+        if (updated) {
             menu.showMessage("\n>> Task updated successfully.");
         } else {
             menu.showMessage("\n>> Could not update the task.");
@@ -135,7 +150,7 @@ void registerExitOption(Menu& menu, bool& running) {
 /**
  * @brief Program entry point. Builds the menu and runs it until the user exits.
  *
- * @return 0 when the program terminates successfully.
+ * @return 0 when the program terminates successfully, 1 on an unexpected error.
  */
 int main() {
     TaskList taskList;
@@ -148,13 +163,21 @@ int main() {
     registerDeleteOption(menu, taskList);
     registerExitOption(menu, running);
 
-    while (running) {
-        const int choice = menu.displayMenu();
-        menu.execute(choice);
+    try {
+        while (running) {
+            const int choice = menu.displayMenu();
+            menu.execute(choice);
 
-        if (running) {
-            menu.pause();
+            if (running) {
+                menu.pause();
+            }
         }
+    } catch (const InputClosedError&) {
+        // The user closed the input (Ctrl+D / Ctrl+Z): leave without looping.
+        std::cout << "\n>> Input closed. Exiting..." << std::endl;
+    } catch (const std::exception& error) {
+        std::cerr << "\n>> Unexpected error: " << error.what() << std::endl;
+        return 1;
     }
 
     return 0;

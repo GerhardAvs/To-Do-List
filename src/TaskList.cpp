@@ -1,5 +1,7 @@
 #include "TaskList.hpp"
 
+#include <stdexcept>
+
 /**
  * @brief Tells whether an index points to an existing task.
  *
@@ -22,19 +24,19 @@ void TaskList::addTask(const std::string& title, const std::string& description,
 }
 
 /**
- * @brief Creates a PriorityTask and stores it at the end of the list.
+ * @brief Overload: creates a PriorityTask and stores it at the end of the list.
  *
  * @param title Short name of the task.
  * @param description Detailed text explaining the task.
  * @param status Initial progress state of the task.
  * @param priority Priority level of the task.
  */
-void TaskList::addPriorityTask(const std::string& title, const std::string& description, TaskStatus status, TaskPriority priority) {
+void TaskList::addTask(const std::string& title, const std::string& description, TaskStatus status, TaskPriority priority) {
     this->tasks.push_back(std::make_unique<PriorityTask>(title, description, status, priority));
 }
 
 /**
- * @brief Creates a TaskWithDate and stores it at the end of the list.
+ * @brief Overload: creates a TaskWithDate and stores it at the end of the list.
  *
  * @param title Short name of the task.
  * @param description Detailed text explaining the task.
@@ -42,9 +44,15 @@ void TaskList::addPriorityTask(const std::string& title, const std::string& desc
  * @param day Day of the target due date.
  * @param month Month of the target due date.
  * @param year Year of the target due date.
+ * @return True when the date is valid and the task was added, false otherwise.
  */
-void TaskList::addTaskWithDate(const std::string& title, const std::string& description, TaskStatus status, int day, int month, int year) {
+bool TaskList::addTask(const std::string& title, const std::string& description, TaskStatus status, int day, int month, int year) {
+    if (!isValidDate(day, month, year)) {
+        return false;
+    }
+
     this->tasks.push_back(std::make_unique<TaskWithDate>(title, description, status, day, month, year));
+    return true;
 }
 
 /**
@@ -57,6 +65,7 @@ bool TaskList::isPriorityTask(int index) const {
     if (!this->isValidIndex(index)) {
         return false;
     }
+
     return dynamic_cast<const PriorityTask*>(this->tasks[index].get()) != nullptr;
 }
 
@@ -70,6 +79,7 @@ bool TaskList::isTaskWithDate(int index) const {
     if (!this->isValidIndex(index)) {
         return false;
     }
+
     return dynamic_cast<const TaskWithDate*>(this->tasks[index].get()) != nullptr;
 }
 
@@ -134,6 +144,7 @@ bool TaskList::updateTaskPriority(int index, TaskPriority priority) {
     }
 
     auto* task = dynamic_cast<PriorityTask*>(this->tasks[index].get());
+
     if (task == nullptr) {
         return false;
     }
@@ -149,7 +160,7 @@ bool TaskList::updateTaskPriority(int index, TaskPriority priority) {
  * @param day Day of the target date.
  * @param month Month of the target date.
  * @param year Year of the target date.
- * @return True if the task exists and is a TaskWithDate, false otherwise.
+ * @return True if the task exists, is a TaskWithDate and the date is valid.
  */
 bool TaskList::updateTaskDate(int index, int day, int month, int year) {
     if (!this->isValidIndex(index)) {
@@ -157,11 +168,17 @@ bool TaskList::updateTaskDate(int index, int day, int month, int year) {
     }
 
     auto* task = dynamic_cast<TaskWithDate*>(this->tasks[index].get());
+
     if (task == nullptr) {
         return false;
     }
 
-    task->setDate(day, month, year);
+    try {
+        task->setDate(day, month, year);
+    } catch (const std::invalid_argument&) {
+        return false;
+    }
+
     return true;
 }
 
