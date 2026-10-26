@@ -2,7 +2,7 @@
 
 Console application developed in **C++** to manage a task list using object-oriented programming.
 
-This project will be developed throughout the semester in **3 phases**, progressively incorporating concepts such as OOP, inheritance, polymorphism, data persistence, file handling, databases, and exception handling.
+This project is developed throughout the semester in **3 phases**, progressively incorporating concepts such as OOP, inheritance, polymorphism, data persistence, file handling, databases, and exception handling.
 
 ---
 
@@ -12,141 +12,188 @@ The project consists of building a **To-Do List application** that allows users 
 
 ### Project Phases
 
-| Phase       | Content                                    | Status          | Limit date (2026) | Score |
-| ----------- | ------------------------------------------ | --------------- | ----------------- | ----- |  
-| **Phase 1** | OOP fundamentals and in-memory CRUD        | 🟢 Done         |   Sep 18th       |  94%  |
-| **Phase 2** | Inheritance, polymorphism, and overloading | 🟠 In progress  |   Oct 22nd       |   0%  |
-| **Phase 3** | Database, file handling, and exceptions    | ⚪ Pending      |   Nov 26th       |   0%  |
+| Phase       | Content                                    | Status         | Limit date (2026) | Score |
+| ----------- | ------------------------------------------ | -------------- | ----------------- | ----- |
+| **Phase 1** | OOP fundamentals and in-memory CRUD        | 🟢 Done        | Sep 18th          | 94%   |
+| **Phase 2** | Inheritance, polymorphism, and overloading | 🟢 Done        | Oct 22nd          | —     |
+| **Phase 3** | Database, file handling, and exceptions    | ⚪ Pending     | Nov 26th          | —     |
 
 ---
 
 # 📌 Phase 1 — Fundamentals
 
-In this first phase, the basic version of the application will be developed.
-
-The program will manage tasks stored **in memory**, using classes and objects.
+The first version of the application manages tasks stored **in memory**, using classes and objects.
 
 ## Features
 
 * ➕ Add a task.
 * 📋 List all tasks.
-* 🔄 Change the status of a task.
+* 🔄 Update a task (title, description, and status).
 * 🗑️ Delete a task.
 * ✅ Validate user input.
 * 💻 Interact through a console menu.
 
 ---
 
+# 📌 Phase 2 — Inheritance and Polymorphism
+
+In the second phase, the application supports **different types of tasks** that share a common base class.
+
+## Features
+
+* 🏷️ Choose the task type when creating it: **Normal**, **With priority**, or **With due date**.
+* ⚡ Priority tasks have a level: **Low**, **Medium**, or **High**.
+* 📅 Tasks with a due date store a validated date (`YYYY-MM-DD`).
+* ✏️ When updating a task, the program asks for the extra fields that belong to its type.
+* 🖨️ Each task type prints its own details through polymorphism.
+
+---
+
 # 🏗️ Project Design
 
-Phase 1 mainly uses two classes:
+### Class Hierarchy
 
-### `Task`
+```text
+            Task
+             ▲
+     ┌───────┴────────┐
+PriorityTask     TaskWithDate
+```
+
+### `Task` (base class)
 
 Represents an individual task.
 
-Its main attributes are:
+Its main attributes are private in order to apply **encapsulation**:
 
+* Title.
 * Description.
 * Status.
-* Creation date.
+* Creation date (generated automatically, format `YYYY-MM-DD HH:MM`).
 
-The attributes will be private in order to apply **encapsulation**.
+It declares the virtual methods `getTypeName()` and `printDetails()`, which the derived classes override, and a virtual destructor for correct polymorphic cleanup.
+
+### `PriorityTask` (derived from `Task`)
+
+Adds a **priority level** (`Low`, `Medium`, `High`).
+
+The priority can be set with the enum value or with text (`"low"`, `"medium"`, `"high"`, or in Spanish `"baja"`, `"media"`, `"alta"`). Invalid text throws `std::invalid_argument` and leaves the priority unchanged.
+
+### `TaskWithDate` (derived from `Task`)
+
+Adds a **target due date** (day, month, and year). The date is validated, including the number of days in each month and leap years. Accepted years go from **2024 to 2100**.
 
 ### `TaskList`
 
-Responsible for managing the collection of `Task` objects.
+Manages the collection of tasks using `std::vector<std::unique_ptr<Task>>`, so it can store any task type in the same list.
 
 Its responsibilities include:
 
-* Adding tasks.
-* Displaying tasks.
-* Modifying tasks.
+* Adding tasks (one `addTask()` overload for each task type).
+* Updating title, description, status, priority, and date.
 * Deleting tasks.
-* Searching for tasks when necessary.
+* Checking the type of a stored task.
+
+### `Menu`
+
+Console interface of the application. It handles every prompt and every print. Each option is registered with a label and the action it runs.
+
+### `InputValidator`
+
+Helper class that reads console input and never returns invalid data (numbers out of range, empty text, letters instead of numbers, etc.). If the input is closed (`Ctrl+D` / `Ctrl+Z`), it throws `InputClosedError` so the program exits cleanly.
 
 ---
 
 # 📂 Project Structure
 
 ```text
-todo-list-cpp/
+To-Do-List/
 │
 ├── README.md
+├── LICENSE
 ├── .gitignore
 │
 ├── docs/
-│   ├── kanban.md
-│   └── diagrams/
-│       ├── phase-1/
-│       ├── phase-2/
-│       └── phase-3/
-│
-├── src/
-│   ├── main.cpp
-│   ├── Task.h
-│   ├── Task.cpp
-│   ├── TaskList.h
-│   ├── TaskList.cpp
-│   └── ...
+│   ├── documentation/
+│   │   └── Bitacora-POO-To-Do-List-Final.pdf
+│   └── rol-structure/
+│       ├── Bitacora-POO-To-Do-List-Actualizada.pdf
+│       ├── Trello.png
+│       └── kanban.md
 │
 ├── include/
+│   ├── InputValidator.hpp
+│   ├── Menu.hpp
+│   ├── PriorityTask.hpp
+│   ├── Task.hpp
+│   ├── TaskList.hpp
+│   └── TaskWithDate.hpp
 │
-├── tests/
+├── src/
+│   ├── InputValidator.cpp
+│   ├── Menu.cpp
+│   ├── PriorityTask.cpp
+│   ├── Task.cpp
+│   ├── TaskList.cpp
+│   ├── TaskWithDate.cpp
+│   └── main.cpp
 │
-├── build/
-│
-└── db/
+└── tests/
+    └── PriorityTaskTest.cpp
 ```
 
 ### Folder Description
 
-| Folder/File      | Description                                        |
-| ---------------- | -------------------------------------------------- |
-| `src/`           | Project source code.                               |
-| `include/`       | Shared headers if the project grows.               |
-| `tests/`         | Tests and test cases.                              |
-| `docs/`          | Project documentation.                             |
-| `docs/kanban.md` | Information and activity log for the Kanban board. |
-| `docs/diagrams/` | UML diagrams for the different phases.             |
-| `build/`         | Files generated during compilation.                |
-| `db/`            | Database-related files and scripts for Phase 3.    |
+| Folder/File           | Description                                          |
+| --------------------- | ---------------------------------------------------- |
+| `include/`            | Header files (`.hpp`) with class declarations.       |
+| `src/`                | Source files (`.cpp`) with the implementations.      |
+| `tests/`              | Test programs.                                       |
+| `docs/documentation/` | Final project log (bitácora).                        |
+| `docs/rol-structure/` | Team organization, Kanban log, and Trello board.     |
+| `build/`              | Compiled files (created locally, ignored by Git).    |
 
 ---
 
 # 🛠️ Technologies
 
-* **C++**
+* **C++17**
+* **g++**
 * **Git**
 * **GitHub**
-* **GitHub Projects / Kanban**
-* **UML**
+* **Trello (Kanban)**
 
-New technologies related to persistence and databases will be introduced during the following phases.
+New technologies related to persistence and databases will be introduced in Phase 3.
 
 ---
 
 # ▶️ Compilation and Execution
 
-From the project root:
+From the project root, create the `build` folder (it is ignored by Git, so it does not exist after cloning):
 
 ```bash
-g++ src/*.cpp -o build/todo-list
+mkdir -p build
 ```
 
-Then:
+Compile the program:
+
+```bash
+g++ -std=c++17 -Iinclude src/*.cpp -o build/todo-list
+```
+
+Run it:
 
 ```bash
 ./build/todo-list
 ```
 
-> On Windows, the executable can be generated as `todo-list.exe`.
+> On Windows, use `mkdir build` and generate `build/todo-list.exe`. The menu uses box-drawing characters, so a terminal with UTF-8 support is recommended.
 
 ---
 
 # 🎮 Usage
 
-When the program starts, a menu similar to the following will be displayed:
+When the program starts, the following menu is displayed:
 
 ```text
 ╔══════════════════════════════════════════════╗
@@ -163,62 +210,105 @@ When the program starts, a menu similar to the following will be displayed:
 Select an option: 
 ```
 
-The user will be able to select an option and manage their tasks.
+When creating a task, the program first asks for its type:
+
+```text
+  [1] Normal
+  [2] With priority
+  [3] With due date
+Select task type: 
+```
+
+Then it asks for the title, description, and status. Depending on the type, it also asks for the priority level or the due date.
+
+Example of the task list:
+
+```text
+--- TASK LIST (1) ---
+  [1] Buy groceries (Priority)
+      Description: Milk and bread
+      Status: Pending | Created: 2026-10-25 22:28 | Priority: High
+```
 
 ---
 
-# 📊 Task Statuses
+# 📊 Task Values
 
-Tasks can have one of the following statuses:
+### Status
 
 ```text
-PENDING = 1
+PENDING     = 1
 IN PROGRESS = 2
-COMPLETED = 3
+COMPLETED   = 3
+```
+
+### Priority (only for priority tasks)
+
+```text
+LOW    = 1
+MEDIUM = 2
+HIGH   = 3
+```
+
+### Due date (only for tasks with due date)
+
+```text
+Format: YYYY-MM-DD
+Years:  2024 - 2100
 ```
 
 ---
 
 # 🧪 Validation
 
-The program must prevent invalid input from causing errors or unexpectedly terminating the application.
+The program prevents invalid input from causing errors or unexpectedly terminating the application.
 
-Cases to be considered include:
+Handled cases include:
 
 * Non-existent menu options.
-* Task IDs that do not exist.
-* Empty input.
-* Incorrectly formatted data.
-* Attempts to modify or delete non-existent tasks.
+* Task numbers that do not exist.
+* Empty title or description.
+* Letters or symbols where a number is expected.
+* Dates that do not exist (for example, February 30th).
+* Priority text that is not recognized.
+* Closed input stream (`Ctrl+D` / `Ctrl+Z`).
 
 ---
 
 # 📐 Object-Oriented Programming
 
-The project aims to correctly apply the fundamental principles of **Object-Oriented Programming**.
+The project applies the fundamental principles of **Object-Oriented Programming**.
 
-Phase 1 will mainly focus on:
+### Phase 1
 
-* Classes.
-* Objects.
+* Classes and objects.
 * Encapsulation.
 * Constructors.
-* Methods.
-* Getters and setters.
-* Composition/association between classes.
+* Methods, getters, and setters.
+* Composition between classes (`TaskList` contains `Task` objects).
 
-Later phases will introduce:
+### Phase 2
 
-* Inheritance.
-* Polymorphism.
-* Overloading.
+* **Inheritance:** `PriorityTask` and `TaskWithDate` derive from `Task`.
+* **Polymorphism:** `getTypeName()` and `printDetails()` are virtual and overridden; tasks are stored as `std::unique_ptr<Task>`.
+* **Overloading:**
+  * Constructors of `Task`, `PriorityTask`, and `TaskWithDate`.
+  * `TaskList::addTask()` (one version per task type).
+  * `PriorityTask::setPriority()` (enum or text).
+  * `operator<<` to print any task.
+
+### Phase 3 (planned)
+
+* Data persistence.
+* File handling.
+* Database.
 * Exception handling.
 
 ---
 
 # 📋 Team Organization
 
-Development will be organized using a **Kanban** board.
+Development is organized using a **Kanban** board in **Trello**.
 
 ### Columns
 
@@ -226,25 +316,26 @@ Development will be organized using a **Kanban** board.
 To Do → In Progress → Done
 ```
 
-Tasks will be distributed among team members and updated as the project progresses.
+Tasks are distributed among team members and updated as the project progresses.
 
 The board documentation and weekly reviews can be found at:
 
 ```text
-docs/kanban.md
+docs/rol-structure/kanban.md
+docs/rol-structure/Trello.png
 ```
 
 ---
 
 # 🔄 Git Workflow
 
-Each team member should use Git and make commits as the project progresses.
+Each team member works on their own branch and makes commits as the project progresses.
 
 ### Example
 
 ```bash
 git add .
-git commit -m "dev: last updates"
+git commit -m "feature/task: add TaskWithDate class"
 git push
 ```
 
@@ -255,58 +346,56 @@ Small and descriptive commits are recommended.
 ```text
 feature/task: create Task class
 feature/task: implement TaskList
-feature/task: add task creation functionality
-feature/task: implement task listing
-feature/task: implement status change
-feature/task: implement task deletion
-feature/menu: validate menu option
-feature/menu: validate task ID
-docs: add kanban
+feature/priority: add PriorityTask class
+feature/date: add TaskWithDate class
+feature/menu: ask for task type
+feature/menu: validate task number
+test: add PriorityTask tests
+docs: update README
 ```
 
 ---
 
 # 🌿 Branches
 
-To avoid working directly on `main`, branches are recommended:
+Nobody works directly on `main`. Features are developed in their own branch, merged into `dev`, and once `dev` is stable it is merged into `main` through a Pull Request.
 
 ```text
 main
 │
-├── feature/task
-├── feature/menu
-├── dev
-└── docs
+└── dev
+    ├── feature/PriorityTask
+    ├── feature/TaskWithDate
+    └── feature/docs
 ```
-
-Once a feature is completed, it can be integrated through a Pull Request.
 
 ---
 
 # 🗺️ Roadmap
 
-## 🟡 Phase 1 — Fundamentals
+## 🟢 Phase 1 — Fundamentals
 
 * [x] Create `Task` class.
 * [x] Create `TaskList` class.
 * [x] Implement task creation.
 * [x] Implement task listing.
-* [x] Implement status changes.
+* [x] Implement task updates.
 * [x] Implement task deletion.
 * [x] Implement menu.
 * [x] Add input validation.
 * [ ] Create UML diagram.
 * [x] Document Kanban board.
-* [ ] Perform tests.
 
-## ⚪ Phase 2 — Inheritance and Polymorphism
+## 🟢 Phase 2 — Inheritance and Polymorphism
 
-* [ ] Create a task type hierarchy.
-* [ ] Implement inheritance.
-* [ ] Implement polymorphism.
-* [ ] Implement overloading.
+* [x] Create a task type hierarchy.
+* [x] Implement inheritance (`PriorityTask`, `TaskWithDate`).
+* [x] Implement polymorphism.
+* [x] Implement overloading.
+* [x] Move headers to `include/`.
+* [x] Add `PriorityTask` tests.
 * [ ] Update UML diagram.
-* [ ] Update documentation.
+* [x] Update documentation.
 
 ## ⚪ Phase 3 — Persistence
 
@@ -322,17 +411,37 @@ Once a feature is completed, it can be integrated through a Pull Request.
 
 # 🧪 Testing
 
-Tests should mainly verify the following:
+### Running the tests
 
-| Test              | Expected Result                     |
-| ----------------- | ----------------------------------- |
-| Add valid task    | The task is added successfully      |
-| List tasks        | Existing tasks are displayed        |
-| Change status     | The task status is updated          |
-| Delete task       | The task is removed from the list   |
-| Non-existent ID   | An error message is displayed       |
-| Invalid option    | The program requests a valid option |
-| Empty description | The input is rejected               |
+```bash
+mkdir -p build
+g++ -std=c++17 -Iinclude tests/PriorityTaskTest.cpp src/PriorityTask.cpp src/Task.cpp -o build/priority-test
+./build/priority-test
+```
+
+Each check prints `[OK]` or `[FAIL]`. The program returns `0` when every check passes.
+
+### What is tested
+
+| Test                                   | Expected Result                                  |
+| -------------------------------------- | ------------------------------------------------ |
+| `PriorityTask` constructors            | The priority is stored (default is `Medium`)     |
+| `setPriority()` with enum              | The priority is updated                          |
+| `setPriority()` with text              | Accepts English/Spanish, ignores case and spaces |
+| `setPriority()` with invalid text      | Throws an exception and keeps the old priority   |
+
+### Manual tests
+
+| Test                    | Expected Result                         |
+| ----------------------- | --------------------------------------- |
+| Add valid task          | The task is added successfully          |
+| List tasks              | Existing tasks are displayed            |
+| Update task             | The task data is updated                |
+| Delete task             | The task is removed from the list       |
+| Non-existent task       | The program asks for a valid number     |
+| Invalid option          | The program requests a valid option     |
+| Empty description       | The input is rejected                   |
+| Invalid date            | Only valid days for that month are asked |
 
 ---
 
@@ -349,21 +458,15 @@ Tests should mainly verify the following:
 
 # 📚 Documentation
 
-Additional documentation can be found in:
+Additional documentation can be found in the `docs/` folder:
 
-```text
-docs/
-```
-
-It includes:
-
-* UML diagrams.
-* Kanban organization.
-* Weekly reviews.
-* Technical documentation.
+* `docs/documentation/Bitacora-POO-To-Do-List-Final.pdf` — final project log.
+* `docs/rol-structure/Bitacora-POO-To-Do-List-Actualizada.pdf` — updated log with roles.
+* `docs/rol-structure/kanban.md` — Kanban organization and weekly reviews.
+* `docs/rol-structure/Trello.png` — screenshot of the Trello board.
 
 ---
 
 # 📄 License
 
-This project was developed for **academic purposes**.
+This project was developed for **academic purposes** and is distributed under the **MIT License**. See the `LICENSE` file for details.
