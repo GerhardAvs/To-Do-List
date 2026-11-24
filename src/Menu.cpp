@@ -79,7 +79,7 @@ void Menu::execute(int choice) const {
 
 /**
  * @brief Prints every task stored in a list, numbered from one.
- * Uses dynamic dispatch via printDetails() to print sub-class specifics.
+ * Uses dynamic dispatch via toString() to print sub-class specifics.
  *
  * @param taskList The list whose tasks are printed.
  */
@@ -96,7 +96,7 @@ void Menu::displayTasks(const TaskList& taskList) const {
     for (std::size_t i = 0; i < tasks.size(); ++i) {
         const Task& task = *tasks[i];
 
-        // getTypeName() and operator<< (printDetails) are resolved at runtime.
+        // getTypeName() and operator<< (toString) are resolved at runtime.
         std::cout << "  [" << (i + 1) << "] " << task.getTitle()
                   << " (" << task.getTypeName() << ")" << std::endl;
         std::cout << task << std::endl;

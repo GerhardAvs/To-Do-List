@@ -1,6 +1,7 @@
 #include "Task.hpp"
 
 #include <ctime>
+#include <ostream>
 
 namespace {
 
@@ -125,14 +126,23 @@ std::string Task::getTypeName() const {
 }
 
 /**
- * @brief Prints the base details of the task to the given stream.
+ * @brief Stable identifier of the task type.
  *
- * @param os Output stream to print to.
+ * @return "normal".
  */
-void Task::printDetails(std::ostream& os) const {
-    os << "      Description: " << this->description << "\n";
-    os << "      Status: " << statusToString(this->status)
-       << " | Created: " << this->creationDate;
+std::string Task::getType() const {
+    return "normal";
+}
+
+/**
+ * @brief Builds the base details of the task as text.
+ *
+ * @return Description, status and creation date.
+ */
+std::string Task::toString() const {
+    return "      Description: " + this->description + "\n" +
+           "      Status: " + statusToString(this->status) +
+           " | Created: " + this->creationDate;
 }
 
 /**
@@ -143,7 +153,7 @@ void Task::printDetails(std::ostream& os) const {
  * @return The same stream, to allow chaining.
  */
 std::ostream& operator<<(std::ostream& os, const Task& task) {
-    task.printDetails(os);
+    os << task.toString();
     return os;
 }
 
