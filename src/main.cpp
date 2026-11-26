@@ -1,3 +1,4 @@
+#include "DatabaseManager.hpp"
 #include "InputValidator.hpp"
 #include "Menu.hpp"
 #include "TaskList.hpp"
