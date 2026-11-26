@@ -1,6 +1,7 @@
 #include "TaskList.hpp"
 
 #include <stdexcept>
+#include <utility>
 
 /**
  * @brief Tells whether an index points to an existing task.
@@ -53,6 +54,35 @@ bool TaskList::addTask(const std::string& title, const std::string& description,
 
     this->tasks.push_back(std::make_unique<TaskWithDate>(title, description, status, day, month, year));
     return true;
+}
+
+/**
+ * @brief Overload: stores an already built task.
+ *
+ * @param task Task to store. Ignored when it is nullptr.
+ * @return True when the task was added, false when it was nullptr.
+ */
+bool TaskList::addTask(std::unique_ptr<Task> task) {
+    if (!task) {
+        return false;
+    }
+
+    this->tasks.push_back(std::move(task));
+    return true;
+}
+
+/**
+ * @brief Gets a stored task to modify it.
+ *
+ * @param index Zero-based index of the task.
+ * @return Pointer to the task, or nullptr when the index is not valid.
+ */
+Task* TaskList::getTask(int index) {
+    if (!this->isValidIndex(index)) {
+        return nullptr;
+    }
+
+    return this->tasks[index].get();
 }
 
 /**

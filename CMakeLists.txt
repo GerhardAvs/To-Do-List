@@ -30,3 +30,13 @@ add_executable(task-dialog-demo
     include/TaskDialog.hpp   # listed so AUTOMOC finds Q_OBJECT
 )
 target_link_libraries(task-dialog-demo PRIVATE todo_model Qt6::Widgets)
+
+# Main window of the Qt app (MainWindow + TaskDialog).
+add_executable(todo-gui
+    src/mainGui.cpp
+    src/MainWindow.cpp
+    include/MainWindow.hpp   # listed so AUTOMOC finds Q_OBJECT
+    src/TaskDialog.cpp
+    include/TaskDialog.hpp
+)
+target_link_libraries(todo-gui PRIVATE todo_model Qt6::Widgets)

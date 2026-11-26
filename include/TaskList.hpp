@@ -53,6 +53,24 @@ public:
      */
     bool addTask(const std::string& title, const std::string& description, TaskStatus status, int day, int month, int year);
 
+    /**
+     * @brief Overload: stores an already built task (Task, PriorityTask or TaskWithDate).
+     *
+     * Used by the Qt window, which receives the task from TaskDialog::takeTask().
+     *
+     * @param task Task to store. Ignored when it is nullptr.
+     * @return True when the task was added, false when it was nullptr.
+     */
+    bool addTask(std::unique_ptr<Task> task);
+
+    /**
+     * @brief Gets a stored task to modify it.
+     *
+     * @param index Zero-based index of the task.
+     * @return Pointer to the task, or nullptr when the index is not valid.
+     */
+    Task* getTask(int index);
+
     bool isPriorityTask(int index) const;
     bool isTaskWithDate(int index) const;
 
