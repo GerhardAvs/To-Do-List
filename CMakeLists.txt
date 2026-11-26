@@ -11,6 +11,7 @@ add_library(todo_model STATIC
     src/PriorityTask.cpp
     src/TaskWithDate.cpp
     src/TaskList.cpp
+    src/FileManager.cpp
 )
 target_include_directories(todo_model PUBLIC include)
 
@@ -20,6 +21,9 @@ target_link_libraries(todo-console PRIVATE todo_model)
 
 add_executable(priority-test tests/PriorityTaskTest.cpp)
 target_link_libraries(priority-test PRIVATE todo_model)
+
+add_executable(file-test tests/FileManagerTest.cpp)
+target_link_libraries(file-test PRIVATE todo_model)
 
 # Phase 3: Qt parts.
 find_package(Qt6 COMPONENTS Widgets Sql REQUIRED)
