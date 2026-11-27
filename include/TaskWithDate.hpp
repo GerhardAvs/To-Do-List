@@ -93,11 +93,18 @@ public:
     std::string getTypeName() const override;
 
     /**
-     * @brief Prints task details including the target due date.
+     * @brief Stable identifier of the task type.
      *
-     * @param os Output stream to write to.
+     * @return "date".
      */
-    void printDetails(std::ostream& os = std::cout) const override;
+    std::string getType() const override;
+
+    /**
+     * @brief Builds the task details including its extra field.
+     *
+     * @return Base details plus the due date.
+     */
+    std::string toString() const override;
 };
 
 /**

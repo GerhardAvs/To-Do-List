@@ -159,11 +159,19 @@ std::string TaskWithDate::getTypeName() const {
 }
 
 /**
- * @brief Appends date information to the output stream.
+ * @brief Stable identifier of the task type.
  *
- * @param os Output stream to write to.
+ * @return "date".
  */
-void TaskWithDate::printDetails(std::ostream& os) const {
-    Task::printDetails(os);
-    os << " | Due Date: " << this->getDate();
+std::string TaskWithDate::getType() const {
+    return "date";
+}
+
+/**
+ * @brief Builds the task details including its extra field.
+ *
+ * @return Base details plus the due date.
+ */
+std::string TaskWithDate::toString() const {
+    return Task::toString() + " | Due Date: " + this->getDate();
 }

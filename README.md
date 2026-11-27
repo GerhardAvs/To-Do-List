@@ -71,7 +71,7 @@ Its main attributes are private in order to apply **encapsulation**:
 * Status.
 * Creation date (generated automatically, format `YYYY-MM-DD HH:MM`).
 
-It declares the virtual methods `getTypeName()` and `printDetails()`, which the derived classes override, and a virtual destructor for correct polymorphic cleanup.
+It declares the virtual methods `getTypeName()`, `getType()` and `toString()`, which the derived classes override, and a virtual destructor for correct polymorphic cleanup.
 
 ### `PriorityTask` (derived from `Task`)
 
@@ -290,7 +290,7 @@ The project applies the fundamental principles of **Object-Oriented Programming*
 ### Phase 2
 
 * **Inheritance:** `PriorityTask` and `TaskWithDate` derive from `Task`.
-* **Polymorphism:** `getTypeName()` and `printDetails()` are virtual and overridden; tasks are stored as `std::unique_ptr<Task>`.
+* **Polymorphism:** `getTypeName()`, `getType()` and `toString()` are virtual and overridden; tasks are stored as `std::unique_ptr<Task>`.
 * **Overloading:**
   * Constructors of `Task`, `PriorityTask`, and `TaskWithDate`.
   * `TaskList::addTask()` (one version per task type).

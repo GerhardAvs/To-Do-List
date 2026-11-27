@@ -32,7 +32,9 @@ int main() {
     try { c.setPriority("urgentisima"); } catch (const std::invalid_argument&) { threw = true; }
     check(threw && c.getPriority() == TaskPriority::Medium, "texto invalido lanza excepcion y no cambia la prioridad");
  
-    a.printDetails(std::cout); std::cout << "\n";
+    check(a.getType() == "priority", "getType() -> \"priority\"");
+    check(a.toString().find("Priority: High") != std::string::npos, "toString() incluye la prioridad");
+    std::cout << a.toString() << "\n";
     return failures;
 }
  

@@ -1,7 +1,7 @@
 #ifndef TASK_HPP
 #define TASK_HPP
 
-#include <iostream>
+#include <iosfwd>
 #include <string>
 
 /**
@@ -66,17 +66,26 @@ public:
     virtual std::string getTypeName() const;
 
     /**
-     * @brief Polymorphic function to print detailed information of the task.
+     * @brief Stable identifier of the task type, used to save it in the database.
      *
-     * @param os Output stream where the details will be printed. Defaults to std::cout.
+     * @return "normal" for the base class; derived classes override it.
      */
-    virtual void printDetails(std::ostream& os = std::cout) const;
+    virtual std::string getType() const;
+
+    /**
+     * @brief Builds the detailed text of the task, ready to be shown by any interface.
+     *
+     * The model never prints: the console or the Qt window decide where to show it.
+     *
+     * @return Description, status and creation date; derived classes append their fields.
+     */
+    virtual std::string toString() const;
 };
 
 /**
  * @brief Operator overload: prints any task (base or derived) with <<.
  *
- * Calls the virtual printDetails(), so the derived version is used.
+ * Writes the virtual toString(), so the derived version is used.
  *
  * @param os Output stream to write to.
  * @param task Task to print.

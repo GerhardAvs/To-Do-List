@@ -114,13 +114,21 @@ std::string PriorityTask::getTypeName() const {
 }
 
 /**
- * @brief Appends priority details to the output stream.
+ * @brief Stable identifier of the task type.
  *
- * @param os Output stream to write to.
+ * @return "priority".
  */
-void PriorityTask::printDetails(std::ostream& os) const {
-    Task::printDetails(os);
-    os << " | Priority: " << priorityToString(this->priority);
+std::string PriorityTask::getType() const {
+    return "priority";
+}
+
+/**
+ * @brief Builds the task details including its extra field.
+ *
+ * @return Base details plus the priority level.
+ */
+std::string PriorityTask::toString() const {
+    return Task::toString() + " | Priority: " + priorityToString(this->priority);
 }
 
 /**
