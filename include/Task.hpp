@@ -25,6 +25,7 @@ private:
     std::string description;
     TaskStatus status;
     std::string creationDate;
+    int id = -1;
 
 public:
     /**
@@ -53,6 +54,20 @@ public:
     const std::string& getDescription() const;
     TaskStatus getStatus() const;
     const std::string& getCreationDate() const;
+
+    /**
+     * @brief Gets the database id of the task.
+     *
+     * @return Row id in the tasks table, or -1 while the task is not saved yet.
+     */
+    int getId() const;
+
+    /**
+     * @brief Stores the database id of the task (set by saveTask() and loadTasks()).
+     *
+     * @param id Row id in the tasks table.
+     */
+    void setId(int id);
 
     void setTitle(const std::string& title);
     void setDescription(const std::string& description);

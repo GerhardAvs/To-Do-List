@@ -192,3 +192,20 @@ TaskStatus statusFromInt(int value) {
             return TaskStatus::Pending;
     }
 }
+/**
+ * @brief Gets the database id of the task.
+ *
+ * @return Row id in the tasks table, or -1 while the task is not saved yet.
+ */
+int Task::getId() const {
+    return this->id;
+}
+
+/**
+ * @brief Stores the database id of the task.
+ *
+ * @param id Row id in the tasks table.
+ */
+void Task::setId(int id) {
+    this->id = id;
+}

@@ -1,3 +1,4 @@
+#include "DatabaseManager.hpp"
 #include "InputValidator.hpp"
 #include "Menu.hpp"
 #include "TaskList.hpp"
@@ -157,12 +158,22 @@ int main() {
     Menu menu;
     bool running = true;
 
+    
+    DatabaseManager dbManager("tasks.db");
+    if (dbManager.connect() && dbManager.createTable()) {
+        dbManager.loadTasks(taskList);
+    } else {
+        std::cerr << ">> Database warning: " << dbManager.lastError().toStdString() << std::endl;
+    }
+
+    
     registerCreateOption(menu, taskList);
     registerReadOption(menu, taskList);
     registerUpdateOption(menu, taskList);
     registerDeleteOption(menu, taskList);
     registerExitOption(menu, running);
 
+    
     try {
         while (running) {
             const int choice = menu.displayMenu();
